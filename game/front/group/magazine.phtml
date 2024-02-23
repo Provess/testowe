@@ -1,0 +1,95 @@
+<ips:template parameters="$groupMagazine, $perm" />
+  {{if !$groupMagazine}}
+  <div style="text-align: center; margin-bottom: 15px;">
+    <i class="fa fa-cubes" aria-hidden="true" style="font-size: 100px; opacity: 0.2; margin-right: 5px; margin-top: 15px"></i>
+    <i class="fa fa-cubes" aria-hidden="true" style="font-size: 100px;"></i>
+    <i class="fa fa-cubes" aria-hidden="true" style="font-size: 100px; opacity: 0.2; margin-left: 5px"></i>
+  </div>
+  <div class="ipsPad">
+    <div class='ipsMessage ipsMessage_warning'>
+      Grupa nie posiada żadnych przedmiotów w magazynie.
+    </div>
+  </div>
+  {{else}}
+<div style="background-color: #e6e8eb; margin-top: -15px;">
+  <div style="text-align: center; margin-bottom: 15px;">
+    <i class="fa fa-cubes" aria-hidden="true" style="font-size: 100px; opacity: 0.2; margin-right: 5px; margin-top: 15px"></i>
+    <i class="fa fa-cubes" aria-hidden="true" style="font-size: 100px;"></i>
+    <i class="fa fa-cubes" aria-hidden="true" style="font-size: 100px; opacity: 0.2; margin-left: 5px"></i>
+  </div>
+  <section id="elProfileTabContent" class="ipsBox">
+    <form action="" method="POST">
+      
+         <table id="sarpTable" class='ipsPad'>
+          <tr class="header">	
+          <th></th>
+          <th  data-key="UID">					
+            <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+              <h5 class="ipsDataItem_title"><strong>UID</strong></h5></div>
+          </th>	
+          <th  data-key="Nazwa">					
+            <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+              <h5 class="ipsDataItem_title"><strong>Nazwa</strong></h5></div>
+          </th>
+          <th data-key="Ilość">	
+            <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+              <h5 class="ipsDataItem_title"><strong>Ilość</strong></h5></div>
+          </th>
+          <th data-key="Cena">	
+            <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+              <h5 class="ipsDataItem_title"><strong>Cena</strong></h5></div>
+          </th>
+        </tr>
+   {{foreach $groupMagazine as $row}}
+        <tr class="ipsClearfix" data-keynavblock="">	
+          		<td>
+                    {{if $perm & 447}}
+                  {{if $row['item_type'] == 20 OR $row['item_type'] == 21}}
+             <a href='index.php?app=game&module=group&tab=employees&char_id={expression="\IPS\Request::i()->char_id"}&group_id={expression="\IPS\Request::i()->group_id"}&editProduct={$row["uid"]}' class="ipsType_normal ipsPos_right ipsFaded_withHover " data-ipsdialog data-ipsdialog-modal="true" data-ipsdialog-size="medium" data-ipsdialog-title="Edytowanie produktu - {$row['item_name']}"><i class="fa fa-pencil"></i></a>
+          {{endif}}
+                  {{endif}}
+          </td>
+          <td data-title="ID">	
+            <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+              <h5 class="ipsDataItem_title">{$row['item_uid']}</h5></div>
+          </td>
+          <td data-title="Nazwa">
+            <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+              <h5 class="ipsDataItem_title">
+                 {{if $row['item_type'] == 6}} <span class='ipsBadge ipsBadge_neutral ipsBadge_large'>
+                {{if $row['item_value1'] == 1}} Jedzenie <strong>S</strong> {{elseif $row['item_value1'] == 2}} Jedzenie <strong>M</strong> {{elseif $row['item_value1'] == 3}} Jedzenie <strong>L</strong> {{elseif $row['item_value1'] == 4}} Napój {{endelse}} {{endif}}
+                </span>
+                {{elseif $row['item_type'] == 21}} 
+                <span class='ipsBadge ipsBadge_neutral ipsBadge_large'> Alkohol </span>
+                {{endelseif}}
+                {{endif}}
+                {$row['item_name']}
+              </h5></div>
+          </td>
+          <td data-title="Ilość">
+            <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+              <h5 class="ipsDataItem_title">x {$row['item_count']}</h5></div>
+          </td>
+          <td data-title="Cena">
+            {{if $perm & 1}}
+          	<div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+              <h5 class="ipsDataItem_title"><i class='fa fa-dollar fa-lg'></i>   
+            <input name="price[{$row['item_uid']}]" aria-required="false" class="ipsField_short" min="1" step="any" size="1" max="50000" value="{$row['item_price']}" type="number"></h5></div> 
+            {{else}}
+            	<div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+                  <h5 class="ipsDataItem_title"><i class='fa fa-dolar fa-lg'></i>{$row['item_price']}</h5></div> 
+            {{endif}}
+          </td>     
+        </tr>
+      {{endforeach}}
+</table>
+      {{if $perm & 1}}
+       <div class="ipsType_center ipsPad ipsAreaBackground_light">
+            <input class="ipsButton ipsButton_primary ipsButton_medium" type="submit" value="Zapisz produkty">
+      </div>
+      {{endif}}
+    </form>
+  </section>
+</div>
+  {{endelse}}
+  {{endif}}

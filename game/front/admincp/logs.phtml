@@ -1,0 +1,76 @@
+<ips:template parameters="$logs" />
+<script>
+function myFunction() {
+  // Declare variables 
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("sarpInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("sarpTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+</script>   
+<div  class='ipsType_center'>
+<input type="text" id="sarpInput" onkeyup="myFunction()" placeholder="Szukaj postaci na którą nałożono karę">
+</div>
+<table id="sarpTable" class='ipsPad'>
+  <tr class="header">
+    <th>UID</th>
+    <th>Postać</th>
+    <th>Gracz</th>
+    <th>Nadający admin</th>
+    <th>Typ kary</th>
+    <th>Zarządzaj </th>
+    <th></th>
+  </tr>
+  {{foreach $logs as $row}}
+        <tr class="ipsClearfix" data-keynavblock="">	
+
+          <td data-title="UID">	
+            <div class="ipsDataItem_title ipsType_light">{$row['uid']}</div>
+          </td> 
+          
+          <td data-title="locky">	
+            <div class="ipsDataItem_title">{$row['imie_nazwisko']}</div>
+          </td> 
+
+          <td data-title="CMDo">
+            <div class="ipsDataItem_title ipsType_light">            
+              <a href="http://sa-rp.pl/index.php?/profile/{$row['user_gid']}-redirect/" data-ipshover="" data-ipshover-target="http://sa-rp.pl/index.php?/profile/{$row['user_gid']}-redirect/&do=hovercard">
+             {$row['user_gid2']}
+            </a></div>
+          </td>
+
+          <td data-title="lib">	
+            <div class="ipsDataItem_title ipsType_success">{{if $row['admin_gid'] > 0}} 
+             <a href="http://sa-rp.pl/index.php?/profile/{$row['admin_gid']}-redirect/" data-ipshover="" data-ipshover-target="http://sa-rp.pl/index.php?/profile/{$row['admin_gid']}-redirect/&do=hovercard">
+             {$row['admin']}
+            </a>
+              {{else}} System{{endelse}} {{endif}}</div>
+          </td> 
+
+          <td data-title="speed">	
+            <div class="ipsDataItem_title ipsType_light">{$row['typ']}</div>
+          </td> 
+
+         <td>
+            <a class="ipsButton ipsButton_verySmall ipsButton_veryLight" data-ipsdialog="" data-ipsdialog-modal="true" data-ipsdialog-size="medium" data-ipsdialog-title="(UID: {$row['uid']}) Postać: {$row['imie_nazwisko']}" 
+               href="index.php?app=game&module=ajax&controller=manageLogs&uid={$row['uid']}">
+                <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+                  <h5 class="ipsDataItem_title">Zarządzaj</h5></div>
+              </a>
+          </td>
+  </tr> 
+		{{endforeach}}
+</table>

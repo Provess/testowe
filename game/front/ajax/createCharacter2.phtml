@@ -1,0 +1,178 @@
+<ips:template parameters="$maleSkins, $femaleSkins" />
+<script>
+  function showSkins(choosen)
+  {
+    var gender = "";
+    if(choosen == 1) gender = "male"
+    else if(choosen == 2) gender = "female";
+    
+    $('.saSkins').slideUp();
+    $('#saSkins_'+gender).slideDown();
+  }
+  function clickedSkin(skin_id)
+  {
+    $('.saSkin').css('opacity', '0.4');;
+    $('#saSkin_'+skin_id).css('opacity', '1.0');
+  }
+</script>
+<script>
+  function showImage(choosen)
+  {
+    var rasa = "";
+    if(choosen == 1) rasa = "white"
+    else if(choosen == 2) rasa = "black";
+    
+    $('.saRasas').slideUp();
+    $('#saRasas_'+rasa).slideDown();
+  }
+  function clickedImage(rasa_id)
+  {
+    $('.saRasa').css('opacity', '0.4');;
+    $('#saRasa_'+rasa_id).css('opacity', '1.0');
+  }
+</script>
+<form action="" method="POST">
+  <div class="ipsPad">
+
+
+
+    <ul class="ipsList_reset" style="text-align:center;">
+      <li class="ipsFieldRow ipsClearfix">
+        <label class="ipsFieldRow_label" for="char_firstName">
+          Imię <span class="ipsFieldRow_required">Wymagane</span>
+        </label>
+        <div class="ipsFieldRow_content">
+          <input type="text" name="char_firstName" placeholder="Imię" aria-required="true" maxlength="26" required>
+        </div>
+      </li>
+      <li class="ipsFieldRow ipsClearfix">
+        <label class="ipsFieldRow_label" for="char_firstName">
+          Nazwisko <span class="ipsFieldRow_required">Wymagane</span>
+        </label>
+        <div class="ipsFieldRow_content">
+          <input type="text" name="char_lastName" placeholder="Nazwisko" aria-required="true" maxlength="26" required>
+        </div>
+      </li>     
+      <li class="ipsFieldRow ipsClearfix">
+        <label class="ipsFieldRow_label" for="char_age">
+         <i class="far fa-calendar-alt"></i> Rok urodzenia (np. 1982) <span class="ipsFieldRow_required">Wymagane</span>
+        </label>
+        <div class="ipsFieldRow_content">
+          <input type="number" name="char_age" placeholder="rok urodzenia np. 1982" aria-required="true" maxlength="26" required>
+        </div>
+      </li> 
+      <li class="ipsFieldRow ipsClearfix">
+        <label class="ipsFieldRow_label" for="char_gender">
+         <i class="fas fa-venus-mars"></i> Płeć
+        </label>
+        <div class="ipsFieldRow_content">
+          <select name="char_gender" required style="width: 350px;" onChange="showSkins(value);">
+            <option value="">Płeć postaci</option>
+            <option value="1">Męzczyzna</option>
+            <option value="2">Kobieta</option>
+          </select>
+        </div>
+      </li>
+      <li class="ipsFieldRow ipsClearfix">
+        <label class="ipsFieldRow_label" for="char_rasa">
+         <i class="fas fa-venus-mars"></i> Rasa
+        </label>
+        <div class="ipsFieldRow_content">
+          <select name="char_rasa" required style="width: 350px;" onChange="showImage(value);">
+            <option value="">Rasa postaci</option>
+            <option value="1">Jasna</option>
+            <option value="2">Ciemna</option>
+          </select>
+        </div>
+  
+      <li id="saRasas_white" class="saRasas ipsFieldRow ipsClearfix">
+        <label class="ipsFieldRow_label" for="char_typ">
+          Wybór Typu
+        </label>
+        <br/>
+        {{foreach $WhiteRasa as $key}}
+        <label>
+  			<input class="saRasa_radio" type="radio" name="char_typ" value="{$key}" style="visibility: hidden; position: absolute;" required />
+           	<div class="saRasa" id="saRasa_{$key}" onClick="clickedImage({$key})">
+            	<img src="https://h-rp.eu/images/typy/{$key}.png" width="300" height="150">
+         	</div>
+        </label>
+        {{endforeach}}
+      </li>
+      <li id="saRasas_black" class="saRasas ipsFieldRow ipsClearfix">
+        <label class="ipsFieldRow_label" for="char_typ">
+          Wybór skina
+        </label>
+        <br/>
+        {{foreach $BlackRasa as $key}}
+        <label>
+        	<input class="saRasa_radio" type="radio" name="char_typ" value="{$key}" style="visibility: hidden; position: absolute;" />
+           	<div class="saRasa" id="saRasa_{$key}" onClick="clickedImage({$key})">
+            	<img src="http://h-rp.eu/images/typy/{$key}.png" width="300" height="150">
+          	</div>
+        </label>
+        {{endforeach}}
+      </li>
+      <li id="saSkins_male" class="saSkins ipsFieldRow ipsClearfix">
+        <label class="ipsFieldRow_label" for="char_skin">
+          Wybór skina
+        </label>
+        <br/>
+        {{foreach $maleSkins as $key}}
+        <label>
+  			<input class="saSkin_radio" type="radio" name="char_skin" value="{$key}" style="visibility: hidden; position: absolute;" required />
+           	<div class="saSkin" id="saSkin_{$key}" onClick="clickedSkin({$key})">
+            	<img src="https://h-rp.eu/images/skins/{$key}.png" width="55" height="100">
+         	</div>
+        </label>
+        {{endforeach}}
+      </li>
+      <li id="saSkins_female" class="saSkins ipsFieldRow ipsClearfix">
+        <label class="ipsFieldRow_label" for="char_skin">
+          Wybór skina
+        </label>
+        <br/>
+        {{foreach $femaleSkins as $key}}
+        <label>
+        	<input class="saSkin_radio" type="radio" name="char_skin" value="{$key}" style="visibility: hidden; position: absolute;" />
+           	<div class="saSkin" id="saSkin_{$key}" onClick="clickedSkin({$key})">
+            	<img src="http://h-rp.eu/images/skins/{$key}.png" width="55" height="100">
+          	</div>
+        </label>
+        {{endforeach}}
+      </li>
+  	</ul>
+  </div>
+  <ul class="ipsPad ipsToolList ipsToolList_horizontal ipsList_reset ipsClearfix ipsAreaBackground">
+    <li>
+      <input type="submit" name="char_create" class="ipsButton ipsButton_primary" value="Stwórz postać">
+    </li>
+  </ul>
+</form>
+
+  <ul class="ipsPad ipsList_reset ipsClearfix ipsAreaBackground_dark">
+         Zakładając postać w serwisie <strong>h-rp</strong> automatycznie akceptujesz poniższy regulamin. <br /><br />
+         <strong>§4 Postacie In Character</strong><br />
+
+4.1 Gracz może posiadać wiele postaci przypisanych do jednego konta globalnego, jednakże jakiekolwiek łączenie postaci w jakimkolwiek celu jest kategorycznie zakazane.<br />
+
+4.2 Przekazywanie majątku między własnymi oraz jakiekolwiek próby ominięcia przelewania dóbr na własne konto jest surowo zakazane i będzie karane blokadą postaci.<br />
+
+4.3 Zabronione jest wykorzystywanie informacji zdobytych drogą Out Of Character do wyrządzenia szkody drugiej osobie w grze In Character.<br />
+
+4.4 Postać uśmiercona drogą FCK nie powraca do życia.<br />
+
+4.5 Zabronione jest sprzedawanie majątku bądź pozbywanie się go z powodów takich jak odejście z gry, nieaktywność postaci bądź innych niezwiązanych z grą In Character.<br />
+
+4.6 Zakazane jest posiadania polskiego imiona i nazwiska postaci, wyjątkiem jest zangielszczona forma. <br />
+
+4.7 Opis postaci służy wyłącznie do opisywania obserwowalnego wyglądu postaci.<br />
+
+4.8 Ekipa serwisu nie blokuje postaci jeżeli gracz nie podjął samodzielnej decyzji o jej zablokowaniu bądź nie złamał regulaminu. <br />
+
+4.9 Postać nie traci pamięci po odzyskaniu przytomności, jednak wyjątkiem są sytuacje gdy postać doznała obrażeń fizycznych, które mogą powodować amnezję. Jednak na taką akcje potrzeba mieć zezwolenia gracza z którym jest prowadzona rozgrywka albo mieć przyzwolenie ekipy serwera.<br />
+
+4.10 Gracz ma obowiązek do przemyślanego kreowania własnej postaci, dotyczy to również spójności grup do których dołącza. <br />
+
+4.11 Administracja serwisu posiada pełne prawo do zablokowania postaci użytkownika jeśli gracz kreuje ją w niewłaściwy sposób,  szkodzi innym, jest pozbawiona cech, uczuć, bądź kreuje nierealistyczną postać.<br />
+  	</ul>

@@ -1,0 +1,195 @@
+<ips:template parameters="$todoData, $posts, $form" />
+<script>
+  function editReply(id)
+  {
+    $("#reply_"+id).hide(); 
+    $("#reply_hidden_"+id).show(); 
+  }
+</script>
+  <h1 class="ipsPad ipsDataItem_title ipsType_veryLarge"><strong><font color="#828E99">{$todoData['title']}</font></strong></h1>
+  {{if $todoData['status'] == 2}}
+  <div class='ipsMessage ipsMessage_info'>
+    [ {datetime="$todoData['closed_time']"} ]  <strong>{expression="\IPS\Member::load( $todoData['closed_admin'] )->name"} </strong> oznaczył zgłoszenie jako <strong> DO PRZETESTOWANIA </strong>
+  </div>
+  {{elseif $todoData['status'] == 3}}
+  <div class='ipsMessage ipsMessage_success'>
+    [ {datetime="$todoData['closed_time']"} ]  <strong>{expression="\IPS\Member::load( $todoData['closed_admin'] )->name"} </strong> oznaczył zgłoszenie jako <strong> UKOŃCZONE </strong>
+  </div>
+  {{elseif $todoData['status'] == 4}}
+  <div class='ipsMessage ipsMessage_error'>
+    [ {datetime="$todoData['closed_time']"} ]  <strong>{expression="\IPS\Member::load( $todoData['closed_admin'] )->name"} </strong> oznaczył zgłoszenie jako <strong> ODRZUCONE </strong>
+  </div>
+  {{endelseif}}
+  {{endif}}
+  <div class="ipsColumns">
+    <div class="ipsColumn ipsColumn_wide">
+      <div class="ipsBox ipsWidget_inner ipsPad">
+
+        <ul class="ipsDataList">
+
+          <li class="ipsDataItem">
+            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Status</strong></span>
+            <span class="ipsDataItem_main">
+              {{if $todoData['status'] == 1 }} 
+              <i class="fa fa-info-circle fa-lg ipsType_warning"></i>
+              Nowe 
+              {{elseif $todoData['status'] == 2}} 
+              <i class="fa fa-question-circle fa-lg ipsType_issue"></i> 
+              Do przetestowania 
+              {{elseif $todoData['status'] == 3}} 
+              <i class="fa fa-check-circle fa-lg ipsType_success"></i> Ukończone 
+              {{else}}
+              <i class="fa fa-times-circle fa-lg ipsType_warning"></i> Odrzucone 
+              {{endelse}} {{endif}}</span>
+          </li>
+          <li class="ipsDataItem">
+            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Typ</strong></span>
+            <span class="ipsDataItem_main">
+              {{if $todoData['type'] == 1 }}
+              <i class="fa fa-comments"></i> Forum 
+              {{elseif $todoData['type'] == 2}}  
+              <i class="fa fa-gamepad"></i> Gra 
+              {{else}}  
+              <i class="fa fa-commenting"></i> Discord 
+              {{endelse}} {{endif}}</span>
+          </li>
+          <li class="ipsDataItem">
+            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Priorytet</strong></span>
+            <span class="ipsDataItem_main">{{if $todoData['priority'] == 1 }}
+              <span class="ipsBadge ipsBadge_large ipsBadge_neutral">
+                <strong>Niski</strong>
+              </span> {{elseif $todoData['priority'] == 2}}
+              <span class="ipsBadge ipsBadge_large ipsBadge_new">
+                <strong>Średni</strong>
+              </span> {{elseif $todoData['priority'] == 3}}
+              <span class="ipsBadge ipsBadge_large  ipsBadge_intermediary">
+                <strong>Wysoki</strong>
+              </span> {{else}}
+              <span class="ipsBadge ipsBadge_large  ipsBadge_negative">
+                <strong>PRIORYTET</strong>
+              </span> {{endelse}} {{endif}}</span>
+          </li>
+          {{if \IPS\Member::loggedIn()->member_group_id == 4 }}
+          <h3 class="ipsType_sectionTitle ipsType_center ipsType_warning">
+            <strong> Ustawienia dla administratora </strong>
+          </h3>
+          <div class="ipsType_sectionTitle ipsType_center" style="margin-top: -20px">
+            <form action="" method="POST" class="ipsForm ipsForm_horizontal">
+
+              <li class='ipsDataItem'>
+                <label for='example' class='ipsFieldRow_label'>
+                  Status zgłoszenia
+                </label>
+                <div class='ipsFieldRow_content'>
+                  <select name="status">
+                    <option {{if $todoData['status'] == 1}} selected {{endif}} value="1">Nowe</option>
+                    <option {{if $charData['status'] == 2}} selected {{endif}} value="2">Do przetestowania</option>
+                    <option {{if $charData['status'] == 3}} selected {{endif}} value="3">Ukończone</option>
+                    <option {{if $charData['status'] == 4}} selected {{endif}} value="4">Odrzucone</option>
+                  </select>
+                </div>
+                <br />
+              </li>
+              <li class='ipsDataItem' style='margin-top: 15px'>
+                <input type="submit" value="Zapisz zgłoszenie" class="ipsButton ipsButton_primary ipsButton_small">
+              </li>
+            </form>
+          </div>
+          {{endif}}
+
+        </ul>
+      </div>
+      
+      <div class='ipsPad ipsType_center'>
+        <a href="/index.php?/todo/">
+      	 <span class="ipsButton ipsButton_large  ipsButton_positive"><i class='fa fa-angle-double-left fa-lg'></i> POWRÓT DO LISTY </span>
+         </a>
+         </div>
+    </div>
+    <div class=" ipsColumn ipsColumn_fluid">
+      <div class="ipsBox ipsPad ipsSpacer_bottom  ipsComment ipsComment_parent">
+        <div class="ipsBox ipsPad saSupportMessage_m ipsColumns ipsColumns_collapsePhone">
+          <div class="ipsColumn ipsColumn_medium ipsType_center"  style="background: ##A64A9C">
+            <div class="ipsPad">
+              {template="userPhoto" group="global" app="core" params="\IPS\Member::load( $todoData['admin_id'] ), 'small'"}
+              <br class="ipsSpacer_bottom">				
+              <h3 class="ipsType_sectionHead ipsType_blendLinks"><strong>
+                {expression="\IPS\Member::load( $todoData['admin_id'] )->name"}
+                </strong></h3>				
+              <p class="ipsType_medium ipsType_reset">
+                {expression="\IPS\Member::load( $todoData['admin_id'] )->groupName" raw="true"}
+              </p>
+            </div>
+          </div>
+          <div class="ipsColumn ipsColumn_fluid cNexusSupportMessage_message">
+            <div class="ipsPad">
+              <div class="cNexusSupportMessage_date ipsType_medium">		
+                <p class="ipsType_reset ipsType_light">
+                  {datetime="$todoData['date']"}				
+                </p>
+              </div>
+              <hr class="ipsHr">
+              <div class="ipsType_richText ipsType_normal ">
+                <div class="ipsType_normal ipsType_richText" id="reply_{$row['post_id']}">
+                  {$todoData['content']|raw}
+                  {{if \IPS\Member::loggedIn()->member_id == $todoData['admin_id']}}
+      {{if $todoData['status'] == 1 }}
+      <div class="ipsItemControls">
+         <a class="ipsType_left" href="index.php?app=game&module=todo&editTodo={$todoData['id']}" data-ipsdialog data-ipsdialog-modal="true" data-ipsdialog-size="medium" data-ipsdialog-title="Edytowanie zgłoszenia">
+  			 Edytuj zgłoszenie
+ 		 </a>     
+      </div>
+      {{endif}}
+    {{endif}}
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      {{if $posts}}
+      <h2 class="ipsType_sectionTitle ipsType_reset">Komentarze</h2>
+      <hr class="ipsHr">
+      <div class="ipsAreaBackground_light ipsPad">
+         {{foreach $posts as $row}}
+    <div data-role="commentFeed">					
+      <a name="comment-8"></a>
+      <div class="ipsBox ipsSpacer_bottom  ipsComment ipsComment_parent">
+        <div class="{{if $row['author'] == $todoData['admin_id']}} saSupportMessage_m {{else}} saSupportMessage_s {{endif}} ipsColumns ipsColumns_collapsePhone">
+          <div class="ipsColumn ipsColumn_medium ipsType_center" {{if $row['author'] != $todoData['admin_id']}} style="background: #eef2f6" {{endif}}>
+            <div class="ipsPad">
+              {template="userPhoto" group="global" app="core" params="\IPS\Member::load( $row['author'] ), 'small'"}
+              <br class="ipsSpacer_bottom">				
+              <h3 class="ipsType_sectionHead ipsType_blendLinks"><strong>
+                {expression="\IPS\Member::load( $row['author'] )->name"}
+                </strong></h3>				
+              <p class="ipsType_medium ipsType_reset">
+                {expression="\IPS\Member::load( $row['author'] )->groupName" raw="true"}
+              </p>
+            </div>
+          </div>
+          <div class="ipsColumn ipsColumn_fluid cNexusSupportMessage_message">
+            <div class="ipsPad">
+              <div class="cNexusSupportMessage_date ipsType_medium">		
+                <p class="ipsType_reset ipsType_light">
+                  {datetime="$row['time']"}				
+                </p>
+              </div>
+              <hr class="ipsHr">
+              <div class="ipsType_richText ipsType_normal ">
+                <div class="ipsType_normal ipsType_richText" id="reply_{$row['post_id']}">
+                  {$row['content']|raw}
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>					
+  </div>	
+  {{endforeach}}
+      </div>
+      {{endif}}
+      <br />
+  		{$form|raw}
+    </div>
+  </div>

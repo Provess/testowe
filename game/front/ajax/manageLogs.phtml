@@ -1,0 +1,107 @@
+<ips:template parameters="$log" />
+<div class="ipsColumns ipsColumns_bothSpacing ipsColumns_halfSpacing ipsPad">
+  <div class="ipsColumn ipsColumn_wide ipsBox">
+    <h1 class="ipsType_sectionTitle ipsType_issue"><strong>Informacje</strong></h1>
+    <hr class="ipsHr">
+    <ul class="ipsDataList">
+      <li class="ipsDataItem">
+        <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+          <h4 class="ipsDataItem_title"><strong>Konto globalne</strong></h4><br>
+          <div class="ipsOnlineStatus_offline">{$log['user_gid2']}</div>
+        </div>
+      </li>
+
+      <li class="ipsDataItem">
+        <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+          <h4 class="ipsDataItem_title"><strong>Nadający administrator</strong></h4><br>
+          <div class="ipsOnlineStatus_offline">{{if $log['admin_gid'] > 0}} {$log['admin']} {{else}} System{{endelse}} {{endif}}</div>
+        </div>
+      </li>
+
+      <li class="ipsDataItem">
+        <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+          <h4 class="ipsDataItem_title"><strong>Typ kary</strong></h4><br>
+          <div class="ipsOnlineStatus_offline">{$log['typ']}</div>
+        </div>
+      </li>
+
+      <li class="ipsDataItem">
+        <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+          <h4 class="ipsDataItem_title"><strong>Powód</strong></h4><br>
+          <div class="ipsOnlineStatus_offline">{$log['reason']}</div>
+        </div>
+      </li>
+
+
+      <li class="ipsDataItem">
+        <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+          <h4 class="ipsDataItem_title"><strong>Data</strong></h4><br>
+          <div class="ipsOnlineStatus_offline">{datetime="$log['dataline']"}</div>
+        </div>
+      </li>
+
+
+      <li class="ipsDataItem">
+        <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+          <h4 class="ipsDataItem_title"><strong>Wartość</strong></h4><br>
+          <div class="ipsOnlineStatus_offline">{$log['value']} ( dni / minut / punktów gs )</div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+  <div class="ipsColumn ipsColumn_fluid ipsBox">
+    <h1 class="ipsType_sectionTitle ipsType_success"><strong>Zarządzanie wpisem</strong></h1>
+    <hr class="ipsHr">
+    <ul class="ipsDataList ipsType_center">
+      {{if $log['type'] == 4}}
+        {{if $log['deactiver'] == 0}}
+        <a href="index.php?app=game&module=admincp&tab=logs&character={$log['user_char_id']}&logid={$log['uid']}&admin={expression="\IPS\Member::loggedIn()->member_id"}" class="ipsButton ipsButton_primary ipsButton_small" style="font-size: 16px;">
+          <i class="fa fa-ban" aria-hidden="true"></i> Odblokuj postać
+        </a>
+        {{else}}
+        <a  class="ipsButton ipsButton_primary ipsButton_small ipsButton_disabled" style="font-size: 16px;">
+          <i class="fa fa-check" aria-hidden="true"></i> Postać została już odblokowana
+        </a>
+        {{endelse}} {{endif}}
+        {{if $log['deactiver'] != 0}}
+      	<br />
+        <li class="ipsDataItem ipsPad">
+          <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+            <h4 class="ipsDataItem_title"><strong>Dezaktywator blokady postaci</strong></h4><br>
+            <div class="ipsOnlineStatus_offline">{$log['deactiver-admin']}</div>
+          </div>
+        </li>
+        {{endif}}
+      {{endif}}
+
+      {{if $log['type'] == 3}}
+        {{if $log['deactiver'] == 0}}
+        <a href="index.php?app=game&module=admincp&tab=logs&user={$log['user_gid']}&logid2={$log['uid']}&admin2={expression="\IPS\Member::loggedIn()->member_id"}" class="ipsButton ipsButton_primary ipsButton_small" style="font-size: 16px;">
+          <i class="fa fa-ban" aria-hidden="true"></i> Odbanuj ban SAMP
+        </a>
+        {{else}}
+        <a  class="ipsButton ipsButton_primary ipsButton_small ipsButton_disabled" style="font-size: 16px;">
+          <i class="fa fa-check" aria-hidden="true"></i> Ban SAMP został już zdjęty
+        </a>
+        {{endelse}} {{endif}}
+      {{if $log['deactiver'] != 0}}
+      <li class="ipsDataItem ipsPad">
+        <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+          <h4 class="ipsDataItem_title"><strong>Dezaktywator bana SAMP</strong></h4><br>
+          <div class="ipsOnlineStatus_offline">{$log['deactiver-admin']}</div>
+        </div>
+      </li>
+      {{endif}}
+         {{endif}}
+      
+      {{if $log['type'] == 5 OR $log['type'] == 1 OR $log['type'] == 2 OR $log['type'] == 6 }}
+      <div class="ipsBox ipsPad">
+        Brak możliwości operacji wpisem, w którym typ kary wynosi <b>{$log['typ']}</b>
+      </div>
+      {{endif}}
+    </ul>
+  </div>
+
+
+</div>

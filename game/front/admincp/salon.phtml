@@ -1,0 +1,53 @@
+<ips:template parameters="$salon" />
+<table class="ipsTable ipsTable_responsive" data-role="table">
+      <thead>
+        <tr class="ipsAreaBackground">		
+          <th>
+          </th>
+          <th  data-key="Pojazd">					
+            Pojazd
+          </th>	
+
+          <th data-key="Cena">	
+            Cena
+          </th>
+          
+          <th  data-key="Klasa">					
+            Klasa
+          </th>	
+        </tr>
+      </thead>
+      {{foreach $salon as $row}}
+      <tbody data-role="tableRows">
+        <form action="" method="POST">
+        <tr class="ipsClearfix" data-keynavblock="">	
+          <td> </td>
+          <td data-title="Pojazd">	
+            <div class="ipsDataItem_title">{$row['dealer_model']}</div>
+          </td> 
+          
+                    <td data-title="Cena">	
+                     $ <input name="salon_cena[{$row['dealer_uid']}]" type="text" value="{$row['dealer_price']}" class="ipsField_short">                   
+          </td> 
+          
+                    <td data-title="Klasa">	
+                      <select name="salon_klasa[{$row['dealer_uid']}]">
+            <option {{if $row['dealer_category'] == 1}} selected {{endif}} value="1">Jednoslady</option>
+          <option {{if $row['dealer_category'] == 2}} selected {{endif}} value="2">Pieciodrzwiowe</option>
+          <option {{if $row['dealer_category'] == 3}} selected {{endif}} value="3">Trzydrzwiowe</option>
+          <option {{if $row['dealer_category'] == 4}} selected {{endif}} value="4">Sportowe</option>
+           </select>                   
+          </td> 
+          
+                {{endforeach}}
+        </tr>
+      </tbody>
+    </table>
+
+        <hr class='ipsHr'>
+  <div style="text-align: center">
+    <input type="submit" value="Zapisz" class='ipsButton ipsButton_medium ipsButton_positive'>
+  </div>
+  </form>
+
+  

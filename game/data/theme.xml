@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<theme name="Default" author_name="Invision Power Services, Inc" author_url="https://www.invisioncommunity.com">
+ <template template_group="global" template_name="characterList" template_data="$content=NULL, $classes=array()" template_location="front" template_app="game">
+test</template>
+</theme>

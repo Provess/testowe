@@ -1,0 +1,50 @@
+<ips:template parameters="$market, $marketItem, $marketCar, $marketDoor" />
+{{if $market['auction_type'] == 1}}
+<h2 class="ipsType_sectionTitle ipsType_reset cForumTitle"><strong>{$marketItem['name']}</strong></h2>
+<div class='ipsColumns'>
+	<div class='ipsColumn ipsColumn_fluid'>
+      <div class="ipsBox ipsPad">
+        Przedmiot - {$marketItem['auction_uid']}
+      </div>
+	</div>
+	<div class='ipsColumn ipsColumn_wide'>
+      <div class="ipsBox ipsPad">
+      	Fluid column
+      </div>
+  	</div>
+</div>
+
+{{elseif $market['auction_type'] == 2}} 
+
+<h2 class="ipsType_sectionTitle ipsType_reset cForumTitle"><strong>{$marketCar['model']}</strong></h2>
+<div class='ipsColumns'>
+	<div class='ipsColumn ipsColumn_fluid'>
+      <div class="ipsBox ipsPad">
+        Pojazd - {$marketCar['auction_uid']}
+      </div>
+	</div>
+	<div class='ipsColumn ipsColumn_wide'>
+      <div class="ipsBox ipsPad">
+      	Fluid column
+      </div>
+  	</div>
+</div>
+
+{{else}}
+
+<h2 class="ipsType_sectionTitle ipsType_reset cForumTitle"><strong>{$marketDoor['auction_uid']}</strong></h2>
+<div class='ipsColumns'>
+	<div class='ipsColumn ipsColumn_fluid'>
+      <div class="ipsBox ipsPad">
+        Domek
+      </div>
+	</div>
+	<div class='ipsColumn ipsColumn_wide'>
+      <div class="ipsBox ipsPad">
+      	Fluid column
+      </div>
+  	</div>
+</div>
+
+{{endelse}}
+{{endif}}

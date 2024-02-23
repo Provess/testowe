@@ -1,0 +1,59 @@
+<ips:template parameters="$characters,  $possessions, $char_id, $char_name" />
+{{if \IPS\Request::i()->possession_char_id}}
+<h2 class="ipsType_sectionTitle ipsType_reset cForumTitle">Wybierz posiadłość</h2>
+<hr class="ipsHr">
+<div style="text-align: center">
+  <form action="" method="GET">
+    <input type="hidden" name="app" value="game">
+    <input type="hidden" name="module" value="possessions">
+    <input type="hidden" name="char_id" value="{$char_id}">
+    <i class="fa fa-home" aria-hidden="true" style="font-size: 150px; opacity: 0.7; margin-right: 15px"></i>
+	<i class="fa fa-home ipsType_negative" aria-hidden="true" style="font-size: 200px;"></i>
+    <i class="fa fa-home" aria-hidden="true" style="font-size: 150px; opacity: 0.7; margin-left: 15px"></i>
+  	<hr class="ipsHr">
+    <div class='ipsAreaBackground ipsPad'>
+    <p>
+        <strong class='ipsType_sectionTitle ipsType_reset cForumTitle ipsType_light ipsType_small'> {$char_name} </strong>
+      <select name="possession_id">
+        {{if $possessions}}
+         	{{foreach $possessions as $row}}
+         		<option value="{$row['id']}">{$row['nazwa']}</option>
+          	{{endforeach}}
+        {{else}}
+        	<option value="0">Brak</option>
+        {{endif}}
+      </select>
+      <input class="ipsButton ipsButton_primary ipsButton_small" type="submit" value="Wybierz posiadłość"  style='margin-left: 20px; margin-right: 10px'>     
+       lub <a href='/index.php?app=game&module=character&controller=character&tab=possessions'>Powróć do wyboru postaci</a>
+    </p>
+    </div>
+  </form>
+</div>
+{{else}}
+<h2 class="ipsType_sectionTitle ipsType_reset cForumTitle">Wybierz postać</h2>
+<hr class="ipsHr">
+<div style="text-align: center">
+  <form action="" method="GET">
+    <input type="hidden" name="app" value="game">
+    <input type="hidden" name="module" value="character">
+    <input type="hidden" name="controller" value="character">
+    <input type="hidden" name="tab" value="possessions">
+	<i class="fa fa-user" aria-hidden="true" style="font-size: 100px; opacity: 0.3; margin-right: 15px;"></i>
+    <i class="fa fa-user" aria-hidden="true" style="font-size: 150px; opacity: 0.7; margin-right: 15px"></i>
+    <i class="fa fa-user ipsType_negative" aria-hidden="true" style="font-size: 200px;"></i>
+    <i class="fa fa-user" aria-hidden="true" style="font-size: 150px; opacity: 0.7; margin-left: 15px"></i>
+    <i class="fa fa-user" aria-hidden="true" style="font-size: 100px; opacity: 0.3; margin-left: 15px;"></i>
+  	<hr class="ipsHr">
+    <div class='ipsAreaBackground ipsPad'>
+    <p>
+      <select name="possession_char_id">
+        {{foreach $characters as $row}}
+        <option value="{$row['id']}">{$row['imie_nazwisko']}</option>
+        {{endforeach}}
+      </select>
+      <input class="ipsButton ipsButton_primary ipsButton_small" type="submit" value="Wybierz postać" style='margin-left: 20px'>
+    </p>
+    </div>
+  </form>
+</div>
+{{endif}}

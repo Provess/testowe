@@ -1,0 +1,55 @@
+<ips:template parameters="$door" />
+<table class="ipsTable ipsTable_responsive" data-role="table">
+<div class='ipsMessage ipsMessage_info'>
+  <span class='ipsMessage_code'>Witaj w <strong>aktualnych ofertach nieruchomości</strong></span>
+	<br><br>Aktualne oferty nieruchomości w Fort Carson!<br>Wybierz nieruchomość, która Cię interesuje a następnie zadzwoń pod numer 162 lub też wybierz go z listy kontaktów a następnie zakup nieruchomość ze świadomością automatycznego przepisania jej na Twoją postać!<br>Bezpiecznie i szybko!
+</div>
+    {{if !$door}}
+    <div class="ipsBox ipsPad">
+      <div class='ipsMessage ipsMessage_error'>
+       Obecnie nie ma nieruchomości na sprzedaż.
+      </div>
+    </div>
+      {{else}}
+      <thead>
+        <tr class="ipsAreaBackground">		
+
+          <th  data-key="UID">					
+            UID
+          </th>	
+
+          <th  data-key="Przedmiot">					
+            Nazwa nieruchomości
+          </th>	
+
+          <th data-key="Cena">	
+            Cena
+          </th>   
+       <th data-key="Cena">	
+            Właściciel
+          </th>  
+        </tr>
+      </thead>
+      {{foreach $door as $row}}
+      <tbody data-role="tableRows">
+        <tr class="ipsClearfix" data-keynavblock="">	
+
+          <td data-title="ID">	
+            <div class="ipsDataItem_title ipsType_light">{$row['door_uid']}</div>
+          </td> 
+
+           <td data-title="Przedmiot">	
+              <div class="ipsDataItem_title ipsType_light">{$row['door_name']}</div>
+          </td> 
+
+          <td data-title="Cena">	
+            <div class="ipsDataItem_title"><i class="fas fa-dollar-sign" style="color:#66FF33;"></i> {number="$row['door_rent']"} USD</div>
+          </td> 
+           <td data-title="Przedmiot">	
+              <div class="ipsDataItem_title ipsType_light"><a href="http://h-rp.eu/index.php?/profile/{$row['char_gid']}-redirect/">{$row['char_name']}</a> </div>
+          </td> 
+		{{endforeach}}
+          {{endif}}
+        </tr>
+      </tbody>
+    </table>

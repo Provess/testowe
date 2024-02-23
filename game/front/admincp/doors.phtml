@@ -1,0 +1,280 @@
+<ips:template parameters="$Doors_Player, $Doors_Group, $Doors_Count_Players, $Doors_Count_Groups" />
+<script>
+function myFunction() {
+  // Declare variables 
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("sarpInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("sarpTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+</script>  
+
+<h2 class="ipsType_sectionTitle ipsType_reset cForumTitle">Drzwi</h2>
+<hr class="ipsHr"> 
+<div class="ipsColumns">
+  <div class="ipsColumn_fluid ipsType_center ipsAreaBackground ipsPad">
+    <ul class='ipsButton_split'>
+	<li><a href='index.php?app=game&module=admincp&tab=doors&owner=Players' class='ipsButton ipsButton_small {{if \IPS\Request::i()->owner == 'Players' }} ipsButton_primary {{else}} ipsButton_veryLight {{endelse}} {{endif}}'>Drzwi należace do graczy</a></li>
+	<li><a href='index.php?app=game&module=admincp&tab=doors&owner=Groups' class='ipsButton ipsButton_small  {{if \IPS\Request::i()->owner == 'Groups' }} ipsButton_primary {{else}} ipsButton_veryLight {{endelse}} {{endif}}'>Drzwi należace do grup</a></li>
+</ul>
+  </div>
+<hr class="ipsHr">
+{{if \IPS\Request::i()->owner == 'Players' }}
+	<div class="ipsBox ipsPad">
+        <div class='ipsType_center'>
+	  <input type="text" id="sarpInput" onkeyup="myFunction()" placeholder="Szukaj drzwi po nazwie">
+  </div>
+       <table id="sarpTable">
+  <tr class="header">
+    <th  data-key="UID">					
+              ID
+            </th>	
+            <th  data-key="Nazwa">					
+              Nazwa
+            </th>	
+            <th data-key="Typ właściciela">	
+              Typ właściciela
+            </th>           
+            <th data-key="Właściciel">	
+              Właściciel
+            </th>                
+            <th data-key="Właściciel">	
+              Szczegóły
+            </th>
+  </tr>
+ {{foreach $Doors_Player as $player}}
+        <tbody data-role="tableRows">
+          <tr class="ipsClearfix" data-keynavblock="">	
+            <td data-title="ID">	
+              <div class="ipsDataItem_title ipsType_light">{$player['door_uid']}</div>
+            </td>
+            <td data-title="Nazwa">
+              <div class="ipsDataItem_title">{$player['door_name']}</div>
+            </td>
+            <td data-title="Status">
+              <div class="ipsDataItem_title">{$player['door_ownertype']}</div>
+            </td>           
+            <td data-title="Status">
+              <div class="ipsDataItem_title">{$player['char_name']} (UID: {$player['char_uid']})</div>
+            </td>                  
+            <td data-title="Status">
+              <a class="ipsButton ipsButton_verySmall ipsButton_veryLight" href="#szczegolygracz" data-ipsDialog data-ipsDialog-title="Drzwi: {$player['nazwa']} (UID:{$player['doorid']})" data-ipsDialog-content="#szczegolygracz_{$player['doorid']}">
+                <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+                  <h5 class="ipsDataItem_title">Szczegóły</h5></div>
+              </a>
+            </td>
+            
+            <div id="szczegolygracz_{$player['doorid']}" class='ipsHide'>
+              <div class="ipsPad ipsBox">
+                <div class='ipsColumns'>
+                  <div class='ipsColumn ipsColumn_fluid'>
+                    <div class="ipsWidget ipsWidget_vertical cProfileSidebarBlock ipsBox ipsSpacer_bottom">
+                      <h2 class="ipsWidget_title ipsType_reset">Drzwi</h2>
+                      <div class="ipsWidget_inner">
+                        <ul class="ipsDataList cProfileFields">
+                          
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>ID</strong></span>
+                            <span class="ipsDataItem_main">{$player['door_uid']}</span>
+                          </li>   
+                            
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Nazwa</strong></span>
+                            <span class="ipsDataItem_main">{$player['nazwa']}</span>
+                          </li> 
+                            
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Typ właściciela</strong></span>
+                            <span class="ipsDataItem_main">{$player['typ_wlasciciela']}</span>
+                          </li> 
+                            
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Właściciel - IC</strong></span>
+                            <span class="ipsDataItem_main">{$player['imie_nazwisko']}   (ID postaci: {$player['wlasciciel']})</span>
+                          </li> 
+                          
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Własciciel - OOC</strong></span>
+                            <span class="ipsDataItem_main"><a href="http://sa-rp.pl/index.php?/profile/{$player['gid']}-redirect/" data-ipshover="" data-ipshover-target="http://sa-rp.pl/index.php?/profile/{$player['gid']}-redirect/&do=hovercard">
+                              {$player['nick_ooc']}</a>   (GID Konta: {$player['gid']})</span>
+                          </li> 
+                          
+                        </ul>
+                      </div>
+                    </div>
+                  </div>                  
+                  <div class='ipsColumn ipsColumn_fluid'>
+                    <div class="ipsWidget ipsWidget_vertical cProfileSidebarBlock ipsBox ipsSpacer_bottom">
+                      <h2 class="ipsWidget_title ipsType_reset">Informacje</h2>
+                      <div class="ipsWidget_inner">
+                        <ul class="ipsDataList cProfileFields">
+                          
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Gotówka w drzwiach</strong></span>
+                            <span class="ipsDataItem_main">$ {$player['cash']}</span>
+                          </li>   
+                            
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Status drzwi</strong></span>
+                            <span class="ipsDataItem_main">{{if $player['lock'] == 1}} Zamknięte {{else}} Otwarte {{endelse}} {{endif}}</span>
+                          </li> 
+                            
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Możliwość przejazdu</strong></span>
+                            <span class="ipsDataItem_main">{{if $player['garage'] == 1}} Tak {{else}} Nie {{endelse}} {{endif}}</span>
+                          </li> 
+                            
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Data zamknięcia drzwi</strong></span>
+                            <span class="ipsDataItem_main">{datetime="$player['closed_time']"}</span>
+                          </li> 
+                          
+                        </ul>
+                      </div>
+                    </div>
+                  </div>       
+                </div>
+              </div>
+            </div>
+            
+          </tr>
+        </tbody>
+        {{endforeach}}
+</table>
+      
+    
+      <div style="clear: both"></div>
+</div>
+{{elseif \IPS\Request::i()->owner == 'Groups' }}
+<div class="ipsBox ipsPad">
+          <div class='ipsType_center'>
+	  <input type="text" id="sarpInput" onkeyup="myFunction()" placeholder="Szukaj drzwi po nazwie">
+  </div>
+         <table id="sarpTable">
+  <tr class="header">
+    <th  data-key="UID">					
+              ID
+            </th>	
+            <th  data-key="Nazwa">					
+              Nazwa
+            </th>	
+            <th data-key="Typ właściciela">	
+              Typ właściciela
+            </th>           
+            <th data-key="Właściciel">	
+              Właściciel
+            </th>                
+            <th data-key="Właściciel">	
+              Szczegóły
+            </th>
+  </tr>
+  {{foreach $Doors_Group as $group}}
+        <tbody data-role="tableRows">
+          <tr class="ipsClearfix" data-keynavblock="">	
+            <td data-title="ID">	
+              <div class="ipsDataItem_title ipsType_light">{$group['door_uid']}</div>
+            </td>
+            <td data-title="Nazwa">
+              <div class="ipsDataItem_title">{$group['door_name']}</div>
+            </td>
+            <td data-title="Status">
+              <div class="ipsDataItem_title">{$group['door_ownertype']}</div>
+            </td>           
+            <td data-title="Status">
+              <div class="ipsDataItem_title">{$group['group_name']} (UID: {$group['group_uid']})</div>
+            </td>                  
+            <td data-title="Status">
+              <a class="ipsButton ipsButton_verySmall ipsButton_veryLight" href="#szczegolygrupa" data-ipsDialog data-ipsDialog-title="Drzwi: {$group['nazwa']} (UID:{$group['doorid']})" data-ipsDialog-content="#szczegolygrupa_{$group['doorid']}">
+                <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+                  <h5 class="ipsDataItem_title">Szczegóły</h5></div>
+              </a>
+            </td>
+            
+           <div id="szczegolygrupa_{$group['doorid']}" class='ipsHide'>
+              <div class="ipsPad ipsBox">
+                <div class='ipsColumns'>
+                  <div class='ipsColumn ipsColumn_fluid'>
+                    <div class="ipsWidget ipsWidget_vertical cProfileSidebarBlock ipsBox ipsSpacer_bottom">
+                      <h2 class="ipsWidget_title ipsType_reset">Drzwi</h2>
+                      <div class="ipsWidget_inner">
+                        <ul class="ipsDataList cProfileFields">
+                          
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>ID</strong></span>
+                            <span class="ipsDataItem_main">{$group['doorid']}</span>
+                          </li>   
+                            
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Nazwa</strong></span>
+                            <span class="ipsDataItem_main">{$group['nazwa']}</span>
+                          </li> 
+                            
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Typ właściciela</strong></span>
+                            <span class="ipsDataItem_main">{$group['typ_wlasciciela']}</span>
+                          </li> 
+                            
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Własciciel</strong></span>
+                            <span class="ipsDataItem_main">{$group['desc']}   (ID Grupy: {$group['wlasciciel']})</span>
+                          </li> 
+                          
+                        </ul>
+                      </div>
+                    </div>
+                  </div>                  
+                  <div class='ipsColumn ipsColumn_fluid'>
+                    <div class="ipsWidget ipsWidget_vertical cProfileSidebarBlock ipsBox ipsSpacer_bottom">
+                      <h2 class="ipsWidget_title ipsType_reset">Informacje</h2>
+                      <div class="ipsWidget_inner">
+                        <ul class="ipsDataList cProfileFields">
+                          
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Gotówka w drzwiach</strong></span>
+                            <span class="ipsDataItem_main">$ {$group['cash']}</span>
+                          </li>   
+                            
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Status drzwi</strong></span>
+                            <span class="ipsDataItem_main">{{if $group['lock'] == 1}} Zamknięte {{else}} Otwarte {{endelse}} {{endif}}</span>
+                          </li> 
+                            
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Możliwość przejazdu</strong></span>
+                            <span class="ipsDataItem_main">{{if $group['garage'] == 1}} Tak {{else}} Nie {{endelse}} {{endif}}</span>
+                          </li> 
+                            
+                          <li class="ipsDataItem">
+                            <span class="ipsDataItem_generic ipsDataItem_size3 ipsType_break"><strong>Data zamknięcia drzwi</strong></span>
+                            <span class="ipsDataItem_main">{datetime="$group['closed_time']"}</span>
+                          </li> 
+                          
+                        </ul>
+                      </div>
+                    </div>
+                  </div>       
+                </div>
+              </div>
+            </div>
+            
+          </tr>
+        </tbody>
+        {{endforeach}}
+</table>
+        
+      <div style="clear: both"></div>
+</div>
+{{endelseif}} {{endif}}

@@ -1,0 +1,47 @@
+<ips:template parameters="$group" />
+<table class="ipsTable ipsTable_responsive" data-role="table">
+<div class='ipsMessage ipsMessage_info'>
+  <span class='ipsMessage_code'>Witaj w <strong>najaktywniejszych grupach</strong></span>
+	Zakładka przekazuje informacje o najaktywniejszych grupach na serwerze.<br>Wszystkie grupy, które posiadają pracowników, którzy spedzają dużo czasu na służbie grupy w grze nabijają tym samym grupie punkty aktywności.<br>Punkty aktywności mają rzecz jasna pozytywny wpływ na rozwój grupy.
+</div>
+  <div class="cloud right rounded">Limit wczytywanych grup<br><span>#10</span></div>
+   <div class="cloud right rounded">Wygrywa<br><span>{{foreach \IPS\game\Character::groupabest() as $row}}{$row['group_name']}{{endforeach}}</span></div>
+
+
+      <thead>
+        <tr class="ipsAreaBackground">		
+
+          <th  data-key="UID">					
+            UID
+          </th>	
+
+          <th  data-key="Przedmiot">					
+            Nazwa
+          </th>	
+
+          <th data-key="Cena">	
+           <i class="fas fa-chart-line"></i> Punkty Aktywności 
+          </th>   
+       
+        </tr>
+      </thead>
+      {{foreach $group as $row}}
+      <tbody data-role="tableRows">
+        <tr class="ipsClearfix" data-keynavblock="">	
+
+          <td data-title="ID">	
+            <div class="ipsDataItem_title ipsType_light">{$row['group_uid']}</div>
+          </td> 
+
+           <td data-title="Przedmiot">	
+              <div class="ipsDataItem_title ipsType_light">{$row['group_name']}</div>
+          </td> 
+
+          <td data-title="Cena">	
+            <div class="ipsDataItem_title">{$row['group_activity']} punktów</div>
+          <div style="height:5px; margin-top:2px;background:green;width:{$row['group_activity']}%; max-width:100%;"></div>
+          </td> 
+		{{endforeach}}
+        </tr>
+      </tbody>
+    </table>

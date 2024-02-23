@@ -1,0 +1,48 @@
+<ips:template parameters="$account" />
+<form method="post" name="przelew">
+  <div class='ipsColumns ipsColumns_bothSpacing ipsColumns_halfSpacing'>
+     {{foreach $account as $key}}
+     <div class='ipsColumn ipsBox ipsPad ipsColumn_fluid ipsType_center'>
+       <h2 class="ipsType_sectionTitle ipsType_reset cForumTitle">{$key['name']}</h2>
+       	<hr class="ipsHr">
+       <i class="fa fa-star ipsType_issue" style="font-size: 600%"></i><b class="ipsType_sectionTitle ipsType_reset cForumTitle" style="font-size: 700%">{$key['days']}</b>
+       <b class="ipsType_sectionTitle ipsType_reset cForumTitle" style="font-size: 100%; margin-left: -15px;">dni</b>
+       <h2 class="ipsType_sectionTitle ipsType_reset cForumTitle" style="font-size: 135%;">
+         Koszt usługi: <b>{$key['price']}</b> zł</h2>
+        <a href="{$key['link']}"> <span class='ipsBadge ipsBadge_positive ipsBadge_large'> Kup uslugę </span> </a>
+     </div>
+    {{endforeach}}
+  </div>
+<div class="ipsPad">
+      <ul class="ipsList_reset">
+        <li class="ipsFieldRow ipsClearfix ipsBox ipsPad">
+          <div class="ipsType_minorHeading ipsType_reset cForumTitle" style="padding-bottom: 5px;">
+            Płatności obsługuje firma <strong>HOMEPAY Sp. z o. o.</strong><br/>
+            Infolinia dotycząca płatności:<strong> (22) 266 85 25</strong><br/>
+            Właściciel serwisu: <strong><a href="http://sa-rp.pl/index.php?">Harvest Role Play</a></strong><br/>
+            W razie problemów prosimy kontaktować się na e-mail: <strong>kontakt@h-rp.eu</strong><br/>
+            <strong> | <a href="http://homepay.pl/regulamin/">Regulamin mikropłatności</a> | <a href="https://homepay.pl/reklamacje/">Reklamacje płatności</a> | <a href="http://h-rp.eu/index.php?/announcement/1-regulamin/">Regulamin serwisu</a> | </strong>
+          </div>
+          	<hr class="ipsHr">
+  <label class="ipsFieldRow_label ipsType_minorHeading ipsType_reset cForumTitle" for="service">
+            Wybierz usługę
+          </label><br/>
+          <select name="service">
+            {{foreach $account as $key}}
+            <option value="{$key['account']}">
+              {$key['name']} - PRZELEW
+            </option>
+            {{endforeach}}
+          </select><br/>
+   <label class="ipsFieldRow_label ipsType_minorHeading ipsType_reset cForumTitle" for="service">
+            KOD <span class="ipsFieldRow_required">Otrzymasz go w zwrotnym emailu od Homepay</span>
+          </label><br/>
+  <input type="text" name="check_code2" value="" aria-required="true" maxlength="8" required> <br /><br />
+    <input type="submit" name="buy_premium" class="ipsButton ipsButton_veryLarge ipsButton_normal ipsType_minorHeading ipsType_reset cForumTitle" value="Aktywuj konto premium">
+            </li>
+            </ul>
+          </div>
+</form>
+
+<form method="post" name="przelew" action="https://homepay.pl/przelew/">
+</form>

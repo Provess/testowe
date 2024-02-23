@@ -1,0 +1,175 @@
+<ips:template parameters="$chars_active, $chars_disabled" />
+<script>
+function myFunction() {
+  // Declare variables 
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("sarpInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("sarpTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+</script>   
+
+<script>
+function myFunction2() {
+  // Declare variables 
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("sarpInput2");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("sarpTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+</script>   
+
+<h2 class="ipsType_sectionTitle ipsType_reset cForumTitle">Postacie</h2>
+<hr class="ipsHr"> 
+<div class="ipsColumns">
+  <div class="ipsColumn_fluid ipsType_center ipsAreaBackground ipsPad">
+    <ul class='ipsButton_split'>
+	<li><a href='index.php?app=game&module=admincp&tab=characters&status=active' class='ipsButton ipsButton_small {{if \IPS\Request::i()->status == 'active' }} ipsButton_primary {{else}} ipsButton_veryLight {{endelse}} {{endif}}'>Postacie aktywne</a></li>
+	<li><a href='index.php?app=game&module=admincp&tab=characters&status=blocked' class='ipsButton ipsButton_small  {{if \IPS\Request::i()->status == 'blocked' }} ipsButton_primary {{else}} ipsButton_veryLight {{endelse}} {{endif}}'>Postacie zablokowane</a></li>
+  </ul>
+  <div class='ipsType_center'>
+	  <input type="text" id="sarpInput" onkeyup="myFunction()" placeholder="Szukaj po UID">
+  </div>  
+  <div class='ipsType_center'>
+	  <input type="text" id="sarpInput2" onkeyup="myFunction2()" placeholder="Szukaj po nicku">
+  </div>  
+  </div>
+</div>
+<hr class="ipsHr">
+{{if \IPS\Request::i()->status == 'active' }}
+<div class="ipsBox ipsPad">
+	      <table id="sarpTable" class="ipsTable ipsTable_responsive" data-role="table">
+        <thead>
+          <tr class="ipsAreaBackground">											
+            <th  data-key="ID">					
+              ID
+            </th>	
+            <th  data-key="Imie Nazwisko">					
+              Imie Nazwisko
+            </th>	
+            <th data-key="Global">	
+              Global
+            </th>           
+            <th data-key="Ostatnia aktywność">	
+              Ostatnia aktywność
+            </th>
+            <th data-key="Finasne">	
+              Finanse
+            </th>
+
+          </tr>
+        </thead>
+        {{foreach $chars_active as $active}}
+        <tbody data-role="tableRows">
+          <tr class="ipsClearfix" data-keynavblock="">	
+            <td data-title="ID">	
+              <div class="ipsDataItem_title ipsType_light">{$active['uid']}</div>
+            </td>      
+            <td data-title="Imie Nazwisko">
+              <div class="ipsDataItem_title">{$active['imie_nazwisko']}</div>
+            </td>
+            <td data-title="Global">
+              <div class="ipsDataItem_title">
+                <a href="http://h-rp.eu/index.php?/profile/{$active['gid']}-redirect/" data-ipshover="" data-ipshover-target="http://h-rp.eu/index.php?/profile/{$active['gid']}-redirect/&do=hovercard">
+                  {$active['nick_ooc']}</a>
+              </div>
+            </td>
+           
+            <td data-title="Ostatnia aktywność">
+              <div class="ipsDataItem_title">{datetime="$active['player_last_join']"}</div>
+            </td>  
+            <td data-title="Finanse">
+              <div class="ipsDataItem_title">
+               <div class="ipsDataItem_title ipsType_light">${$active['cash']} (Bank: ${$active['bankcash']})</div>
+            </td>
+       
+          </tr>
+        </tbody>
+        {{endforeach}}
+      </table>
+</div>
+{{elseif \IPS\Request::i()->status == 'blocked' }}
+	<div class="ipsBox ipsPad">
+      <table class="ipsTable ipsTable_responsive" data-role="table">
+        <thead>
+          <tr class="ipsAreaBackground">											
+            <th  data-key="ID">					
+              ID
+            </th>	
+            <th  data-key="Imie Nazwisko">					
+              Imie Nazwisko
+            </th>	
+            <th data-key="Global">	
+              Global
+            </th>           
+            <th data-key="Ostatnia aktywność">	
+              Ostatnia aktywność
+            </th>
+            <th data-key="Szczegóły">	
+              Szczegóły
+            </th>
+          </tr>
+        </thead>
+        {{foreach $chars_disabled as $disabled}}
+        <tbody data-role="tableRows">
+          <tr class="ipsClearfix" data-keynavblock="">	
+            <td data-title="ID">	
+              <div class="ipsDataItem_title ipsType_light">{$disabled['g_uid']}</div>
+            </td>
+            <td data-title="Imie Nazwisko">
+              <div class="ipsDataItem_title">{$disabled['imie_nazwisko']}</div>
+            </td>
+            <td data-title="Global">
+              <div class="ipsDataItem_title">
+                <a href="http://sa-rp.pl/index.php?/profile/{$disabled['gid']}-redirect/" data-ipshover="" data-ipshover-target="http://sa-rp.pl/index.php?/profile/{$disabled['gid']}-redirect/&do=hovercard">
+                  {$disabled['nick_ooc']}</a>
+              </div>
+            </td>          
+            <td data-title="Ostatnia aktywność">
+              <div class="ipsDataItem_title">{datetime="$disabled['player_last_join']"}</div>
+            </td>   
+            <td data-title="Szczegóły">
+               <a class="ipsButton ipsButton_verySmall ipsButton_veryLight" 
+               href="index.php?app=game&module=ajax&controller=manageCharacter&id={$disabled['id']}">
+                <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+                  <h5 class="ipsDataItem_title">Zarządzaj</h5></div>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+        {{endforeach}}
+      </table>
+</div>
+{{endelseif}}
+{{else}}
+<div class="ipsBox ipsPad">
+  Aby coś wyświetlić, wybierz jedną z opcji powyżej.
+</div>
+{{endelse}}
+{{endif}}

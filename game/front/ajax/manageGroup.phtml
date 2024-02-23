@@ -1,0 +1,260 @@
+<ips:template parameters="$groupData" />
+<div class="ipsColumns ipsColumns_bothSpacing ipsColumns_halfSpacing ipsPad">
+  <div class="ipsColumn ipsColumn_wide ipsBox ipsPad">
+    <h1 class="ipsType_sectionTitle ipsType_issue"><strong>Informacje</strong></h1>
+    <hr class="ipsHr">
+    <ul class="ipsDataList">
+      <li class="ipsDataItem">
+        <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+          <h4 class="ipsDataItem_title"><strong>Lider</strong></h4><br>
+          <div class="">{$groupData['imie_nazwisko']} (ID: {$groupData['leader']})</div>
+        </div>
+      </li>
+
+      <li class="ipsDataItem">
+        <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+          <h4 class="ipsDataItem_title"><strong>Saldo konta</strong></h4><br>
+          <div class="">${$groupData['cash']}</div>
+        </div>
+      </li>
+
+      <li class="ipsDataItem">
+        <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+          <h4 class="ipsDataItem_title"><strong>Dotacja</strong></h4><br>
+          <div class="">${$groupData['dotacja']}</div>
+        </div>
+      </li>
+
+      <hr class="ipsCommentUnreadSeperator">
+
+      <li class="ipsDataItem">
+        <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+          <h4 class="ipsDataItem_title"><strong>Punkty aktywności</strong></h4><br>
+          <div class="">{$groupData['points']} </div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+  <div class="ipsColumn ipsColumn_fluid ipsBox ipsPad">
+    <h1 class="ipsType_sectionTitle ipsType_success"><strong>Zarządzanie {$groupData['desc']} (ID: {$groupData['id']} )</strong></h1>
+    <hr class="ipsHr">
+    <ul class="ipsDataList ipsType_center">
+
+      <form action="" method="POST" class="ipsForm ipsForm_horizontal ">
+
+        <li class='ipsFieldRow'>
+          <label for='example' class='ipsFieldRow_label'>
+            Nazwa grupy
+          </label>
+          <div class='ipsFieldRow_content'>
+            <input name="desc" type="text" value="{$groupData['desc']}"><br />
+            <span class='ipsFieldRow_desc'>Nickname nazwę grupy - max 32 znaki</span>
+          </div>
+        </li>
+
+        <hr class="ipsHr">
+
+        <li class='ipsFieldRow'>
+          <label for='example' class='ipsFieldRow_label'>
+            TAG grupy
+          </label>
+          <div class='ipsFieldRow_content'>
+            <input name="tag" type="text" value="{$groupData['tag']}"><br />
+            <span class='ipsFieldRow_desc'>Określ TAG grupy - max 8 znaków</span>
+          </div>
+        </li>
+
+        <hr class="ipsHr">
+
+        <li class='ipsFieldRow'>
+          <label for='example' class='ipsFieldRow_label'>
+            Typ grupy
+          </label>
+          <div class='ipsFieldRow_content'>
+            <select name="kind">
+              <option {{if $groupData['kind'] == 0}} selected {{endif}} value="0">Nieokreślona</option>
+              <option {{if $groupData['kind'] == 1}} selected {{endif}}value="1">Police Departament</option>
+              <option {{if $groupData['kind'] == 2}} selected {{endif}}value="2">FBI</option>
+              <option {{if $groupData['kind'] == 3}} selected {{endif}}value="3">Government</option>
+              <option {{if $groupData['kind'] == 4}} selected {{endif}}value="4">Medical Centre</option>
+              <option {{if $groupData['kind'] == 5}} selected {{endif}}value="5">Fire Departament</option>
+              <option {{if $groupData['kind'] == 6}} selected {{endif}}value="6">San News</option>
+              <option {{if $groupData['kind'] == 7}} selected {{endif}}value="7">ZGP</option>
+              <option {{if $groupData['kind'] == 8}} selected {{endif}}value="8">Gang uliczny</option>
+              <option {{if $groupData['kind'] == 9}} selected {{endif}}value="9">Ściganci</option>
+              <option {{if $groupData['kind'] == 10}} selected {{endif}}value="10">Syndykat</option>
+              <option {{if $groupData['kind'] == 11}} selected {{endif}}value="11">Sklep</option>
+              <option {{if $groupData['kind'] == 12}} selected {{endif}}value="12">Warsztat</option>
+              <option {{if $groupData['kind'] == 13}} selected {{endif}}value="13">Restauracja</option>
+              <option {{if $groupData['kind'] == 14}} selected {{endif}}value="14">Salon</option>
+              <option {{if $groupData['kind'] == 15}} selected {{endif}}value="15">Ochrona</option>
+              <option {{if $groupData['kind'] == 16}} selected {{endif}}value="16">Bank</option>
+              <option {{if $groupData['kind'] == 17}} selected {{endif}}value="17">Taxi</option>
+              <option {{if $groupData['kind'] == 18}} selected {{endif}}value="18">Sport</option>
+              <option {{if $groupData['kind'] == 19}} selected {{endif}}value="19">Klub sportowy</option>
+              <option {{if $groupData['kind'] == 20}} selected {{endif}}value="20">Napad mieszkania</option>
+              <option {{if $groupData['kind'] == 21}} selected {{endif}}value="21">Klub</option>
+              <option {{if $groupData['kind'] == 22}} selected {{endif}}value="22">Pay n Spray</option>
+              <option {{if $groupData['kind'] == 23}} selected {{endif}}value="23">Sklep z ubraniami</option>
+              <option {{if $groupData['kind'] == 24}} selected {{endif}}value="24">Wypozyczalnia pojazdow</option>
+            </select><br />
+            <span class='ipsFieldRow_desc'>Określ typ grupy</span>
+          </div>
+        </li>
+
+        <hr class="ipsHr">
+
+        <li class='ipsFieldRow'>
+          <label for='example' class='ipsFieldRow_label'>
+            Limit pojazdów
+          </label>
+          <div class='ipsFieldRow_content'>
+            <input name="limit_veh" type="text" value="{$groupData['limit_vehicles']}"><br />
+            <span class='ipsFieldRow_desc'>Określ limit pojazdów maksymalnie przypisanych do grupy</span>
+          </div>
+        </li>
+
+        <hr class="ipsCommentUnreadSeperator">
+
+        <li class='ipsFieldRow'>
+          <label for='example' class='ipsFieldRow_label'>
+            Ubrania grupowe
+          </label>
+          <div class='ipsFieldRow_content'>
+            <input style="height:60px" name="skins" type="text" value="{$groupData['skins']}"><br />
+            <span class='ipsFieldRow_desc'>Określ ubrania grupowe po przecinku (przykład: 1,2,3,4)</span>
+          </div>
+        </li>
+
+        <hr class="ipsHr">
+
+        <li class='ipsFieldRow'>
+          <label for='example' class='ipsFieldRow_label'>
+            Flagi grupowe 
+          </label>
+          <div class='ipsFieldRow_content'>
+            <ul class="ipsSideMenu_list ipsSideMenu_withChecks ipsSideMenu_small ipsType_normal ipsSpacer_top ipsSpacer_half" data-ipssidemenu="" data-ipssidemenu-type="check" data-ipssidemenu-responsive="true">
+
+              <li>
+                <a href="#" class="ipsSideMenu_item {{if $groupData['flags'] & 1}}ipsSideMenu_itemActive{{endif}}">
+                  <input name="flags[1]" value="1" {{if $groupData['flags'] & 1}}checked=""{{endif}} type="checkbox">
+                  <label id="elField_group_label">Czat departamentowy</label>
+                </a>
+              </li>
+
+              <li>
+                <a href="#" class="ipsSideMenu_item {{if $groupData['flags'] & 2}}ipsSideMenu_itemActive{{endif}}">
+                  <input name="flags[2]" value="2" {{if $groupData['flags'] & 2}}checked=""{{endif}} type="checkbox">
+                  <label id="elField_group_label">Megafon</label>
+                </a>
+              </li>
+              
+              <li>
+                <a href="#" class="ipsSideMenu_item {{if $groupData['flags'] & 4}}ipsSideMenu_itemActive{{endif}}">
+                  <input name="flags[4]" value="4" {{if $groupData['flags'] & 4}}checked=""{{endif}} type="checkbox">
+                  <label id="elField_group_label">Kolorowy nickname</label>
+                </a>
+              </li>
+              
+              <li>
+                <a href="#" class="ipsSideMenu_item {{if $groupData['flags'] & 8}}ipsSideMenu_itemActive{{endif}}">
+                  <input name="flags[8]" value="8" {{if $groupData['flags'] & 8}}checked=""{{endif}} type="checkbox">
+                  <label id="elField_group_label">Opuszczanie grupy</label>
+                </a>
+              </li>
+
+              <li>
+                <a href="#" class="ipsSideMenu_item {{if $groupData['flags'] & 16}}ipsSideMenu_itemActive{{endif}}">
+                  <input name="flags[16]" value="16" {{if $groupData['flags'] & 16}}checked=""{{endif}} type="checkbox">
+                  <label id="elField_group_label">Wypłacanie gotówki</label>
+                </a>
+              </li>
+              
+              <li>
+                <a href="#" class="ipsSideMenu_item {{if $groupData['flags'] & 32}}ipsSideMenu_itemActive{{endif}}">
+                  <input name="flags[32]" value="32" {{if $groupData['flags'] & 32}}checked=""{{endif}} type="checkbox">
+                  <label id="elField_group_label">Drive-by</label>
+                </a>
+              </li>
+              
+              <li>
+                <a href="#" class="ipsSideMenu_item {{if $groupData['flags'] & 64}}ipsSideMenu_itemActive{{endif}}">
+                  <input name="flags[64]" value="64" {{if $groupData['flags'] & 64}}checked=""{{endif}} type="checkbox">
+                  <label id="elField_group_label">Stawianie blokad</label>
+                </a>
+              </li>
+              
+              <li>
+                <a href="#" class="ipsSideMenu_item {{if $groupData['flags'] & 128}}ipsSideMenu_itemActive{{endif}}">
+                  <input name="flags[128]" value="128" {{if $groupData['flags'] & 128}}checked=""{{endif}} type="checkbox">
+                  <label id="elField_group_label">Przytrzymywanie</label>
+                </a>
+              </li>
+              
+              <li>
+                <a href="#" class="ipsSideMenu_item {{if $groupData['flags'] & 256}}ipsSideMenu_itemActive{{endif}}">
+                  <input name="flags[256]" value="256" {{if $groupData['flags'] & 256}}checked=""{{endif}} type="checkbox">
+                  <label id="elField_group_label">Zabieranie przedmiotów</label>
+                </a>
+              </li>
+              
+              <li>
+                <a href="#" class="ipsSideMenu_item {{if $groupData['flags'] & 512}}ipsSideMenu_itemActive{{endif}}">
+                  <input name="flags[512]" value="512" {{if $groupData['flags'] & 512}}checked=""{{endif}} type="checkbox">
+                  <label id="elField_group_label">Telefon alarmowy</label>
+                </a>
+              </li>
+              
+              <li>
+                <a href="#" class="ipsSideMenu_item {{if $groupData['flags'] & 1024}}ipsSideMenu_itemActive{{endif}}">
+                  <input name="flags[1024]" value="1024" {{if $groupData['flags'] & 1024}}checked=""{{endif}} type="checkbox">
+                  <label id="elField_group_label">Zgłoszenia grupowe</label>
+                </a>
+              </li>
+              
+              <li>
+                <a href="#" class="ipsSideMenu_item {{if $groupData['flags'] & 2048}}ipsSideMenu_itemActive{{endif}}">
+                  <input name="flags[2048]" value="2048" {{if $groupData['flags'] & 2048}}checked=""{{endif}} type="checkbox">
+                  <label id="elField_group_label">GPS w pojazdach</label>
+                </a>
+              </li>
+              
+              <li>
+                <a href="#" class="ipsSideMenu_item {{if $groupData['flags'] & 4096}}ipsSideMenu_itemActive{{endif}}">
+                  <input name="flags[4096]" value="4096" {{if $groupData['flags'] & 4096}}checked=""{{endif}} type="checkbox">
+                  <label id="elField_group_label">Kogut</label>
+                </a>
+              </li>
+              
+              <li>
+                <a href="#" class="ipsSideMenu_item {{if $groupData['flags'] & 8192}}ipsSideMenu_itemActive{{endif}}">
+                  <input name="flags[8192]" value="8192" {{if $groupData['flags'] & 8192}}checked=""{{endif}} type="checkbox">
+                  <label id="elField_group_label">Wyważanie drzwi</label>
+                </a>
+              </li>
+              
+              <li>
+                <a href="#" class="ipsSideMenu_item {{if $groupData['flags'] & 16384}}ipsSideMenu_itemActive{{endif}}">
+                  <input name="flags[16384]" value="16384" {{if $groupData['flags'] & 16384}}checked=""{{endif}} type="checkbox">
+                  <label id="elField_group_label">Panel burmistrza</label>
+                </a>
+              </li>
+
+            </ul>
+
+          </div>
+        </li>
+
+        <hr class="ipsHr">
+
+        <br />
+        <div style="text-align: center">
+          <input type="submit" value="Zapisz grupę {$groupData['desc']}" class="ipsButton ipsButton_primary ipsButton_small">
+        </div>
+      </form>
+
+    </ul>
+  </div>
+</div>
+<a href="/index.php?app=game&module=admincp&tab=groups"><div class="ipsPad ipsButton ipsButton_normal ipsButton_fullWidth ipsType_sectionTitle"> <strong><< Powrót do list grup </strong></div></a><br />

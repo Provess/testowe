@@ -1,0 +1,33 @@
+<ips:template parameters="$tab, $output, $char_id, $possession_id" />
+<div class="ipsBox ipsBox_transparent ipsAreaBackground" data-ipsTabBar data-ipsTabBar-contentArea='#PosessionsContent' data-ipsTabBar-itemSelector='.ipsSideMenu_item' data-ipsTabBar-activeClass='ipsSideMenu_itemActive'>
+  <div class="ipsColumns ipsColumns_collapsePhone ipsColumns_bothSpacing">
+    <div class="ipsColumn ipsColumn_wide">
+      <div class="ipsSideMenu">
+        <ul class="ipsSideMenu_list">
+          <li>
+            <a href="index.php?app=game&module=possessions&char_id={$char_id}&possession_id={$possession_id}" class="href_tab_1 saGroupHref ipsType_normal ipsSideMenu_item {{if $tab === 'dashboard'}}ipsSideMenu_itemActive{{endif}}" title="Podsumowanie">
+              <i class="fa fa-home fa-lg"></i>&nbsp; Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="index.php?app=game&module=possessions&tab=inhabitants&char_id={$char_id}&possession_id={$possession_id}" class="href_tab_1 saGroupHref ipsType_normal ipsSideMenu_item {{if $tab === 'inhabitants'}}ipsSideMenu_itemActive{{endif}}" title="Podsumowanie">
+              <i class="fa fa-users fa-lg"></i>&nbsp; Mieszkańcy
+            </a>
+          </li>
+            <li style='margin-top: 15px' class='ipsAreaBackground_light ipsPad'>
+            <a href="index.php?app=game&module=character&controller=character&tab=possessions" class="ipsSideMenu_title ipsType_small" title="Powrót">
+              <i class="fa fa-undo fa-lg"></i>&nbsp; Powrót do posiadłości
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="saGroupTab ipsColumn_fluid tab_1" style="display: block; top: -20px">     
+      <section id="PosessionsContent">
+        <div id="ipsTabs_elPosessions_tab_{$tab}_panel" aria-labelledby="tab_{$tab}" aria-hidden="false">
+        	{$output|raw}
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<ips:template parameters="$tab, $output, $charsonline" />
+<div class='ipsBox ipsBox_transparent ipsAreaBackground' id='elSettingsTabs' data-ipsTabBar data-ipsTabBar-contentArea='#elProfileTabContent' data-ipsTabBar-itemSelector='.ipsSideMenu_item' data-ipsTabBar-activeClass='ipsSideMenu_itemActive'>
+	<div class='ipsColumns ipsColumns_collapsePhone ipsColumns_bothSpacing'>
+		<div class='ipsColumn ipsColumn_wide'>
+			<div class='ipsSideMenu' data-ipsSideMenu>
+				<ul class="ipsSideMenu_list">
+					<li>
+						<a href='?app=game&module=character&controller=character' id='tab_character' class='ipsType_normal ipsSideMenu_item {{if $tab === 'dashboard'}}ipsSideMenu_itemActive{{endif}}' title="Panel postaci" role="tab" aria-selected="{{if $tab === 'dashboard'}}true{{else}}false{{endif}}">
+							<i class="fas fa-user"></i> Twoje postacie
+						</a>
+					</li>
+                  	
+            
+          
+                    <li>
+						<a href='?app=game&module=character&controller=character&tab=online' id='tab_online' class='ipsType_normal ipsSideMenu_item {{if $tab === 'online'}}ipsSideMenu_itemActive{{endif}}' title="{lang="online"}" role="tab" aria-selected="{{if $tab === 'online'}}true{{else}}false{{endif}}">
+							  <i class="fas fa-gamepad"></i> inGame <strong style="font-size: 200%" data-ipstooltip="" _title="Gracze przebywający aktualnie na serwerze"><span class="sarppowiadomienie" style="background:linear-gradient(45deg, #1c5592, #223B64);">W grze: {expression="\IPS\game\Character::playersOnline()"}</span></strong>
+						</a> 
+					</li>
+                  
+                  
+                  
+                  
+
+                
+                <!--
+                      <li>
+							<a href='?app=game&module=character&controller=character' id='tab_createCharacter2' class='ipsType_normal ipsSideMenu_item {{if $tab === 'dashboard'}}ipsSideMenu_itemActive{{endif}}' title="Tworzenie nowej postaci" role="tab" aria-selected="{{if $tab === 'dashboard'}}true{{else}}false{{endif}}">
+							<i class="fas fa-user"></i> Stwórz postać
+						</a> 
+					</li>
+
+                  	<li>
+						<a href='?/character/&tab=staff' id='tab_staff' class='ipsType_normal ipsSideMenu_item {{if $tab === 'staff'}}ipsSideMenu_itemActive{{endif}}' title="{lang="staff"}" role="tab" aria-selected="{{if $tab === 'premium'}}true{{else}}false{{endif}}">
+							<i class="fas fa-users-cog"></i> Ekipa serwisu
+						</a>
+					</li>
+                  	<li>
+						<a href='?app=game&module=character&controller=character&tab=tickets' id='tab_tickets' class='ipsType_normal ipsSideMenu_item {{if $tab === 'tickets'}}ipsSideMenu_itemActive{{endif}}' title="Zgłoszenia" role="tab" aria-selected="{{if $tab === 'tickets'}}true{{else}}false{{endif}}">
+							<i class="fas fa-shield-alt"></i> Zgłoszenia
+						</a>
+					</li>
+                  <li>
+						<a href='?app=game&module=character&controller=character&tab=darknets' id='tab_darknets' class='ipsType_normal ipsSideMenu_item {{if $tab === 'darknets'}}ipsSideMenu_itemActive{{endif}}' title="DarkNet" role="tab" aria-selected="{{if $tab === 'darknet'}}true{{else}}false{{endif}}">
+						<i class='fa fa-dollar'></i> DarkNet
+						</a>
+					</li>
+                  <li>
+						<a href='?app=game&module=character&controller=character&tab=reports' id='tab_reports' class='ipsType_normal ipsSideMenu_item {{if $tab === 'reports'}}ipsSideMenu_itemActive{{endif}}' title="Centrum Zgłoszeń 911" role="tab" aria-selected="{{if $tab === 'report911'}}true{{else}}false{{endif}}">
+							<i class="fas fa-phone"></i> Ostatnie zgłoszenia 911
+						</a>
+					</li>
+                                    <li>
+						<a href='?app=game&module=character&controller=character&tab=groupa' id='tab_groupa' class='ipsType_normal ipsSideMenu_item {{if $tab === 'groupa'}}ipsSideMenu_itemActive{{endif}}' title="Najaktywniejsze grupy na serwerze" role="tab" aria-selected="{{if $tab === 'activegroup'}}true{{else}}false{{endif}}">
+							<i class="fas fa-chart-line"></i> Najaktywniejsze grupy
+						</a>
+					</li>
+                   <li>
+						<a href='?app=game&module=character&controller=character&tab=selldoors' id='tab_selldoors' class='ipsType_normal ipsSideMenu_item {{if $tab === 'selldoors'}}ipsSideMenu_itemActive{{endif}}' title="Drzwi na sprzedaż" role="tab" aria-selected="{{if $tab === 'selldoor'}}true{{else}}false{{endif}}">
+							<i class="fas fa-comments-dollar"></i> Oferty sprzedaży nieruchomości
+						</a>
+					</li>
+                  
+                         <!--   {{if \IPS\Member::loggedIn()->member_group_id == 4 }}
+                  	<li>
+						<a href='?app=game&module=character&controller=character&tab=market' id='tab_market' class='ipsType_normal ipsSideMenu_item {{if $tab === 'market'}}ipsSideMenu_itemActive{{endif}}' title="{lang="market"}" role="tab" aria-selected="{{if $tab === 'market'}}true{{else}}false{{endif}}">
+                          <i class='fa fa-dollar'></i><span class="ipsType_warning">Market (tylko dla admin)</span>
+						</a>
+					</li>
+                  	{{endif}}-->
+
+				</ul>
+			</div>
+		</div>
+		<div class='ipsColumn ipsColumn_fluid'>
+			<section id='elProfileTabContent' class='ipsBox ipsPad'>
+				<div id="ipsTabs_elSettingsTabs_tab_{$tab}_panel" class="ipsTabs_panel" aria-labelledby="tab_{$tab}" aria-hidden="false">
+					{$output|raw}
+				</div>
+			</section>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,39 @@
+<ips:template parameters="$pickup" />
+<table class="ipsTable ipsTable_responsive" data-role="table">
+      <thead>
+        <tr class="ipsAreaBackground">		
+
+          <th  data-key="UID">					
+            ID
+          </th>	
+
+          <th  data-key="Model">					
+            Model
+          </th>	
+
+          <th data-key="Typ właściciela">	
+            Treść
+          </th>   
+          
+        </tr>
+      </thead>
+      {{foreach $pickup as $row}}
+      <tbody data-role="tableRows">
+        <tr class="ipsClearfix" data-keynavblock="">	
+
+          <td data-title="ID">	
+            <div class="ipsDataItem_title ipsType_light">{$row['pickup_uid']}</div>
+          </td> 
+
+           <td data-title="Model">	
+             <div class="ipsBox ipsPad ipsType_center"> <img src="https://files.prineside.com/gtasa_samp_model_id/white/{$row['pickup_model']}_w_s.jpg" height="24" width="24"> </div>
+          </td> 
+
+          <td data-title="Treść">	
+            <div class="ipsDataItem_title">{$row['pickup_text']}</div>
+          </td> 
+
+		{{endforeach}}
+        </tr>
+      </tbody>
+    </table>

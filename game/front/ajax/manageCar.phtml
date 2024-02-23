@@ -1,0 +1,149 @@
+<ips:template parameters="$carData" />
+<div class="ipsColumns ipsColumns_bothSpacing ipsColumns_halfSpacing ipsPad">
+  <div class="ipsColumn ipsColumn_wide ipsBox ipsPad">
+    <h1 class="ipsType_sectionTitle ipsType_issue"><strong>Informacje</strong></h1>
+    <hr class="ipsHr">
+    <ul class="ipsDataList">
+      
+      <img class="ipsPad" src="https://www.convoytrucking.net/static/vehicles/small/vehicle_{$carData['model']}.jpg">
+      
+       <li class="ipsDataItem">
+        <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+          <h4 class="ipsDataItem_title"><strong>UID pojazdu</strong></h4><br>
+          <div class="">{$carData['uid']}</div>
+        </div>
+      </li>
+      
+      <li class="ipsDataItem">
+        <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+          <h4 class="ipsDataItem_title"><strong>Model pojazdu</strong></h4><br>
+          <div class="">{$carData['name']} (Model ID: {$carData['model']})</div>
+        </div>
+      </li>
+      
+      <li class="ipsDataItem">
+        <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+          <h4 class="ipsDataItem_title"><strong>Rejestracja pojazdu</strong></h4><br>
+          <div class="">
+            {{if $carData['registered'] == 1 }}
+            <span class="ipsType_success"> Zarejestrowany </span>
+            {{else}}
+            <span class="ipsType_negative"> Niezarejestrowany </span> 
+            {{endif}}
+          </div>
+        </div>
+      </li>
+      
+    </ul>
+  </div>
+  <div class="ipsColumn ipsColumn_fluid ipsBox ipsPad">
+    <h1 class="ipsType_sectionTitle ipsType_success"><strong>Zarządzanie - {$carData['name']}</strong></h1>
+    <hr class="ipsHr">
+    <ul class="ipsDataList ipsType_center">
+
+      <form action="" method="POST" class="ipsForm ipsForm_horizontal ">
+        
+         <li class='ipsFieldRow'>
+                 <label for='example' class='ipsFieldRow_label'>
+                    Paliwo
+                </label>
+                <div class='ipsFieldRow_content'>
+          <input name="fuel" type="text" value="{$carData['fuel']}"><br />
+          	<span class='ipsFieldRow_desc'>Określ paliwo w pojeździe od 1 do 100</span>
+        </div>
+        </li>
+      
+         <hr class="ipsHr">
+        
+         <li class='ipsFieldRow'>
+                 <label for='example' class='ipsFieldRow_label'>
+                    HP pojazdu
+                </label>
+                <div class='ipsFieldRow_content'>
+          <input name="hp" type="text" value="{$carData['hp']}"><br />
+          	<span class='ipsFieldRow_desc'>Określ w przedziale 1-1000 HP pojazdu</span>
+        </div>
+        </li>
+        
+         <hr class="ipsHr">
+        
+  		 <li class='ipsFieldRow'>
+                 <label for='example' class='ipsFieldRow_label'>
+                    Przebieg pojazdu
+                </label>
+                <div class='ipsFieldRow_content'>
+          <input name="distance" type="text" value="{$carData['distance']}"><br />
+          	<span class='ipsFieldRow_desc'>Określ przebieg pojazdu</span>
+        </div>
+        </li>
+        
+        <hr class="ipsCommentUnreadSeperator">
+        
+            <div class='ipsFieldRow_content '>
+              
+              <li class='ipsFieldRow'>
+               <label for='example' class='ipsFieldRow_label'>
+                  Kolor 1  
+                </label>
+                <div class='ipsFieldRow_content'>
+              <input type="text" disabled style="background-color: rgb({$carData['c1']})">
+              <input name="color1" type="text" value="{$carData['color1']}"><br />
+                <span class='ipsFieldRow_desc'>Określ kolor 1</span>
+                </div>
+              </li>
+              
+             <hr class="ipsHr">  
+              
+              <li class='ipsFieldRow'>
+               <label for='example' class='ipsFieldRow_label'>
+                  Kolor 2
+              </label>
+                <div class='ipsFieldRow_content'>
+              <input type="text" disabled style="background-color: rgb({$carData['c2']})">
+              <input name="color2" type="text" value="{$carData['color2']}"><br />
+                <span class='ipsFieldRow_desc'>Określ kolor 2</span>
+                </div>
+              </li>
+              
+             <hr class="ipsHr">
+              
+             <li class='ipsFieldRow'>
+               <label for='example' class='ipsFieldRow_label'>
+                  Właściciel pojazdu
+              </label>
+                <div class='ipsFieldRow_content'>
+              <input type="text" disabled value="{{if $carData['ownertype'] == 1}} {$carData['ownerCharacter']} | {$carData['ownerCharacterOOC']} {{elseif $carData['ownertype'] == 2}} {$carData['ownerGroup']} {{endelseif}} {{endif}}">
+              <input name="owner" type="text" value="{$carData['owner']}"><br />
+                <span class='ipsFieldRow_desc'>Określ ID właściciela pojazdu</span>
+                </div>
+              </li>
+              
+             <hr class="ipsHr">
+              
+               <li class='ipsFieldRow'>
+                 <label for='example' class='ipsFieldRow_label'>
+                    Typ właściciela
+                </label>
+                <div class='ipsFieldRow_content'>
+                  <select name="ownertype">
+                    <option {{if $carData['ownertype'] == 1}} selected {{endif}} value="1">Postać</option>
+                    <option {{if $carData['ownertype'] == 2}} selected {{endif}} value="2">Grupa</option>
+                  </select>
+               <br />
+                <span class='ipsFieldRow_desc'>Okreś typ właściciela pojazdu</span>
+                 </div>
+              </li>
+              
+            <hr class="ipsHr">
+           
+            </div>
+        <br />
+        <div style="text-align: center">
+          <input type="submit" value="Zapisz pojazd {$carData['name']}" class="ipsButton ipsButton_primary ipsButton_small">
+        </div>
+      </form>
+		
+    </ul>
+  </div>
+</div>
+<a href="/index.php?app=game&module=admincp&tab=cars"><div class="ipsPad ipsButton ipsButton_normal ipsButton_fullWidth ipsType_sectionTitle"> <strong><< Powrót do list pojazdów </strong></div></a><br />

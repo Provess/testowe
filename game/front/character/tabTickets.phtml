@@ -1,0 +1,119 @@
+<ips:template parameters="$ticketsCount, $solvedCount, $unsolvedCount, $tickets" />
+<div class="ipsAreaBackground ipsPad">
+  <h1 class="ipsType_sectionTitle ipsType_reset cForumTitle">Podsumowanie</h1>
+  <ol class=" ipsGrid ipsGrid_collapsePhone"  data-ipsgrid="" data-ipsgrid-equalheights="row" style="margin-top: -30px; margin-bottom: -40px;">    
+    <li class="ipsStreamItem ipsStreamItem_contentBlock ipsAreaBackground_reset ipsPad ipsType_center ipsGrid_span4">	    
+      <i class="fa fa-envelope fa-3x"></i>   
+      <div class="ipsStreamItem_container">
+        <div class="ipsStreamItem_header ipsSpacer_top ipsSpacer_half">
+          <h2 class="ipsType_reset ipsStreamItem_title ipsTruncate ipsTruncate_line">
+            <span class="ipsType_break">{$ticketsCount}</span>				
+          </h2>
+          <p class="ipsType_reset ipsType_medium">Napisanych zgłoszeń</p>
+        </div>
+      </div> 
+    </li>
+    <li class="ipsStreamItem ipsStreamItem_contentBlock ipsAreaBackground_reset ipsPad ipsType_center ipsGrid_span4">	    
+      <i class="fa fa-check-square fa-3x ipsType_positive"></i>   
+      <div class="ipsStreamItem_container">
+        <div class="ipsStreamItem_header ipsSpacer_top ipsSpacer_half">
+          <h2 class="ipsType_reset ipsStreamItem_title ipsTruncate ipsTruncate_line">
+            <span class="ipsType_break">{$solvedCount}</span>				
+          </h2>
+          <p class="ipsType_reset ipsType_medium">Rozwiązanych zgłoszeń</p>
+        </div>
+      </div> 
+    </li>
+    <li class="ipsStreamItem ipsStreamItem_contentBlock ipsAreaBackground_reset ipsPad ipsType_center ipsGrid_span4">    
+      <i class="fa fa-exclamation-triangle fa-3x ipsType_negative"></i>  
+      <div class="ipsStreamItem_container">
+        <div class="ipsStreamItem_header ipsSpacer_top ipsSpacer_half">
+          <h2 class="ipsType_reset ipsStreamItem_title ipsTruncate ipsTruncate_line">
+            <span class="ipsType_break">{$unsolvedCount}</span>				
+          </h2>
+          <p class="ipsType_reset ipsType_medium">Nierozwiązanych zgłoszeń</p>
+        </div>         
+      </div>
+    </li>
+
+  </ol>
+</div><br />
+<div class="ipsTabs saTabs ipsClearfix" id="ticketsTabs" data-ipstabbar="" data-ipstabbar-contentarea="#ticketsTabContent"> 
+  <ul role="tablist" class="ipsList_reset" style="float: left">	
+    <a class="ipsTabs_item saTabs_item ipsTabs_activeItem" id="tickets_unsolved" role="tab" aria-selected="true">
+      <span class="saTabs_count" data-action="quickToggleCount">{$unsolvedCount}</span>
+      Aktualne
+    </a>
+    <a class="ipsTabs_item saTabs_item" id="tickets_solved" role="tab">
+      <span class="saTabs_count" data-action="quickToggleCount">{$solvedCount}</span>
+      Rozwiązane
+    </a>	
+  </ul>
+  <a href="index.php?/character/&tab=tickets&action=addticket" data-ipsdialog data-ipsdialog-modal="true" data-ipsdialog-size="medium" data-ipsdialog-title="Tworzenie zgłoszenia" style="float: right; padding-top: 10px; padding-right: 10px;">
+    <span class="ipsBadge ipsBadge_large ipsBadge_new">
+      Stwórz zgłoszenie
+    </span>
+  </a>
+</div>
+<section id="ticketsTabContent">
+  <div id="ipsTabs_ticketsTabs_tickets_unsolved_panel" class="ipsTabs_panel" aria-labelledby="tickets_unsolved" aria-hidden="false" style="display: block;" animating="false">		
+    <ol class="ipsBox ipsDataList ipsDataList_large ipsDataList_zebra ipsAreaBackground_reset cForumList" data-role="game_tickets" style="border-top: 0;">
+      {{if !$tickets}}
+        <div style="padding: 25px;">	
+            Nie posiadasz żadnych zgłoszeń.
+        </div>
+      {{else}}
+        {{foreach $tickets as $row}}
+      {{if $row['status'] == 1 || $row['status'] == 2}}
+          <li class="cForumRow ipsDataItem ipsDataItem_responsivePhoto  ipsClearfix">
+            <div class="ipsDataItem_main" style="vertical-align: middle">
+                <h4 class="ipsDataItem_title ipsType_large ipsType_break">
+                  <span class="ipsBadge ipsBadge_large ipsBadge_new">{$row['category_name']} </span>  
+                  <a href="index.php?/character/&tab=tickets&showTicket={$row['id']}">{$row['title']}</a>
+                </h4>
+            </div>
+            <ul class="ipsDataItem_lastPoster ipsDataItem_withPhoto" style="text-align: center">
+              <li>
+                <strong>{$row['status_name']|raw}</strong>
+              </li>
+              <li>
+                {datetime="$row['time']"}
+              </li>
+            </ul>
+          </li>
+      {{endif}}
+        {{endforeach}}
+      {{endif}}
+    </ol>
+  </div>
+  <div id="ipsTabs_ticketsTabs_tickets_solved_panel" class="ipsTabs_panel" aria-labelledby="tickets_solved" aria-hidden="false" style="display: block;" animating="false">
+    <ol class="ipsBox ipsDataList ipsDataList_large ipsDataList_zebra ipsAreaBackground_reset cForumList" data-role="game_tickets" style="border-top: 0;">
+      {{if !$tickets}}
+        <div style="padding: 25px;">	
+            Nie posiadasz żadnych rozwiązanych zgłoszeń.
+        </div>
+      {{else}}
+        {{foreach $tickets as $row}}
+		{{if $row['status'] == 3}}
+          <li class="cForumRow ipsDataItem ipsDataItem_responsivePhoto  ipsClearfix">
+            <div class="ipsDataItem_main" style="vertical-align: middle">
+                <h4 class="ipsDataItem_title ipsType_large ipsType_break">
+                  <span class="ipsBadge ipsBadge_large ipsBadge_new">{$row['category_name']} </span>  
+                  <a href="index.php?/character/&tab=tickets&showTicket={$row['id']}">{$row['title']}</a>
+                </h4>
+            </div>
+            <ul class="ipsDataItem_lastPoster ipsDataItem_withPhoto" style="text-align: center">
+              <li>
+                <strong>{$row['status_name']|raw}</strong>
+              </li>
+              <li>
+                {datetime="$row['time']"}
+              </li>
+            </ul>
+          </li>
+{{endif}}
+        {{endforeach}}
+      {{endif}}
+    </ol>
+  </div>
+</section>

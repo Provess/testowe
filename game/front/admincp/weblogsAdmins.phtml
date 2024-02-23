@@ -1,0 +1,56 @@
+<ips:template parameters="$weblogs" />
+<script>
+function myFunction() {
+  // Declare variables 
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("sarpInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("sarpTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+</script>   
+
+  <div class='ipsType_center'>
+	  <input type="text" id="sarpInput" onkeyup="myFunction()" placeholder="Szukaj wpis po adminie">
+  </div>
+
+ <table id="sarpTable" class='ipsPad'>
+  <tr class="header">
+    <th>ID</th>
+    <th>Admin</th>
+    <th>Akcja</th>
+    <th>Data</th>
+  </tr>
+  {{foreach $weblogs as $row}}
+    	<tr>
+          <td>
+            {$row['id']}
+          </td>
+          <td>
+            <a href="http://sa-rp.pl/index.php?/profile/{$row['admin']}-redirect/" data-ipshover="" data-ipshover-target="http://sa-rp.pl/index.php?/profile/{$row['admin']}-redirect/&do=hovercard" class="ipsUserPhoto ipsUserPhoto_tiny">
+                  <img src="{$row['photo']}">
+                </a>
+            {$row['admin2']}
+          </td>
+          <td>
+            {$row['action']}
+          </td>
+          <td>
+           {datetime="$row['date']"}
+          </td>
+      </tr>
+  {{endforeach}}
+</table>
+

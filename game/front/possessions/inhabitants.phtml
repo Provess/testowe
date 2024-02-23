@@ -1,0 +1,100 @@
+<ips:template parameters="$doorInhabitants, $char_id, $possesion_id" />
+<div style="background-color: #e6e8eb">
+<div class="ipsBox">
+  {{if $doorInhabitants}}
+  <form action="" method="POST">
+    <table id='sarpTable' data-role="table">
+        <tr class="header">	
+          <th></th>
+          <th data-key="Nick">					
+            <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+              <h5 class="ipsDataItem_title"><strong>Mieszkaniec</strong></h5>
+            </div>
+          </th>
+          <th class="" data-ipstooltip="" _title="Zarządzanie" width="2%">	
+            <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+              <h5 class="ipsDataItem_title"><strong><span class='ipsMessage_code'>ZARZĄDZANIE</span></strong></h5>
+            </div>
+          </th>	
+          <th class="" data-ipstooltip="" _title="Schowek" width="2%">	
+            <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+              <h5 class="ipsDataItem_title"><strong><span class='ipsMessage_code'>SCHOWEK</span></strong></h5>
+            </div>
+          </th>           
+          <th class="" data-ipstooltip="" _title="Otwieranie/Zamykanie" width="2%">	
+            <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+              <h5 class="ipsDataItem_title"><strong><span class='ipsMessage_code'>ZAMEK</span></strong></h5>
+            </div>
+          </th>
+          <th></th>
+        </tr>
+
+      {{foreach $doorInhabitants as $row}}
+        <tr class="ipsClearfix">
+          <td></td>
+          <td>
+            <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+              <a href="http://sa-rp.pl/index.php?/profile/{$row['gid']}-redirect/" data-ipshover="" data-ipshover-target="http://sa-rp.pl/index.php?/profile/{$row['gid']}-redirect/&do=hovercard" class="ipsUserPhoto ipsUserPhoto_tiny">
+                <img src="{$row['photo']}">
+              </a>
+              <h5 class="ipsDataItem_title">{$row['imie_nazwisko']}</h5>
+            </div>
+          </td>
+          <td class="ipsType_center"><input type="checkbox" name="perm[{$row['char_id']}][1]" value="1" id="" data-toggle-id="" {{if $row['perm'] & 1}}checked{{endif}} aria-checked="true" data-ipstoggle="" style="display: none;"> </td>
+          <td class="ipsType_center"><input type="checkbox" name="perm[{$row['char_id']}][2]" value="1" id="" data-toggle-id="" {{if $row['perm'] & 2}}checked{{endif}} aria-checked="true" data-ipstoggle="" style="display: none;"></td>
+          <td class="ipsType_center"><input type="checkbox" name="perm[{$row['char_id']}][4]" value="1" id="" data-toggle-id="" {{if $row['perm'] & 4}}checked{{endif}} aria-checked="true" data-ipstoggle="" style="display: none;"></td>
+          <td data-title="Usuwanie">
+            <div class="ipsType_sectionTitle ipsType_reset ipsType_center cForumTitle">
+              <a href='index.php?app=game&module=possessions&tab=inhabitants&char_id={$char_id}&possession_id={$possesion_id}&kickChar={$row['id']}' class="ipsType_normal  ipsFaded_withHover" data-ipstooltip="" _title="Usuń postać z tej posiadłości" style=""><i class="fa fa-times fa-lg"></i></a>
+            </div>
+          </td>
+        </tr>
+      {{endforeach}}
+    </table>
+    <div class='ipsType_center ipsPad ipsAreaBackground_light'>
+            <input class="ipsButton ipsButton_primary" type="submit" value="Zapisz mieszkańców">
+      </div>
+  </form>
+  {{else}}
+  <div style="text-align: center; margin-bottom: 15px; margin-top: 15px;">
+    <i class="fa fa-male" aria-hidden="true" style="font-size: 125px; opacity: 0.3; margin-right: 5px"></i>
+    <i class="fa fa-male" aria-hidden="true" style="font-size: 125px;"></i>
+    <i class="fa fa-male" aria-hidden="true" style="font-size: 125px; opacity: 0.3; margin-left: 5px"></i>
+  </div>
+  <div class="ipsPad">
+  <div class="ipsMessage ipsMessage_info">
+   <p> Nie posiadasz żadnych przypisanych mieszkańców do swojej posiadłości. </p>
+    <p> Nowego mieszkańca możesz dodać w grze lub poprzez panel widoczny poniżej.</p>
+  </div>
+  </div>
+  {{endif}}
+</div>
+
+<br />
+<div class="ipsColumns">
+    <div class="ipsColumn_fluid">
+      <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+        <h4 class="ipsDataItem_title"><strong>Dodawanie nowego mieszkańca</strong></h4><br>
+      </div>
+      <ul class="ipsDataList ipsBox ipsPad">
+        <div class="ipsColumn ipsColumn_wide ipsType_center">
+          <div class="ipsType_sectionTitle ipsType_reset cForumTitle">
+            <h5 class="ipsDataItem_title">
+              <strong>
+                <form action="" method="POST">
+                  <label for="new_inhabitant">Dane: 
+                  </label>
+                  <input class="ipsField_short" name="new_inhabitant" type="text" placeholder="Imie_Nazwisko">
+                  <input class='ipsButton ipsButton_primary ipsButton_verySmall' type="submit" value="Dodaj mieszkańca" style="margin-left: 10px; margin-top: 10px">
+                </form>
+              </strong>
+            </h5>
+          </div>
+        </div>
+      </ul>
+    </div>
+    <div>         
+    </div>
+    <div style="clear: both"></div>
+  </div>
+    </div>

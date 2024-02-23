@@ -1,0 +1,54 @@
+<ips:template parameters="$admins" />
+<table class="ipsTable ipsTable_responsive" data-role="table">
+
+      <thead>
+        <tr class="ipsAreaBackground">		
+
+          <th  data-key="UID">					
+            ID
+          </th>	
+
+       
+
+          <th data-key="Typ właściciela">	
+            Postać 
+          </th>   
+           <th data-key="Kasa przy niej">	
+           Start Sluzby
+          </th>   
+           <th data-key="Kosz jej wykupienia">	
+            Koniec Sluzby
+          </th>   
+           <th data-key="Owner dziwki UID POSTACI">	
+           Ile min
+          </th> 
+        </tr>
+      </thead>
+      {{foreach $admins as $row}}
+  {{if $row['session_start']+259200 > $timestamp = time() }}
+      <tbody data-role="tableRows">
+        <tr class="ipsClearfix" data-keynavblock="">	
+
+          <td data-title="ID">	
+            <div class="ipsDataItem_title ipsType_light">{$row['session_uid']} </div>
+          </td> 
+
+     
+
+          <td data-title="Treść">	
+            <div class="ipsDataItem_title">{expression="\IPS\game\Character::fetchCharacter($row['session_owner'])['char_name']"}</div>
+          </td> 
+          <td data-title="Kasa">	
+            <div class="ipsDataItem_title">{datetime="$row['session_start']"norelative="true""}</div>
+          </td> 
+          <td data-title="Cena">	
+            <div class="ipsDataItem_title">{datetime="$row['session_end']"norelative="true""}</div>
+          </td> 
+          <td data-title="Owner">	
+            <div class="ipsDataItem_title">{$row['session_min']} min.</div>
+          </td> 
+          {{endif}}
+		{{endforeach}}
+        </tr>
+      </tbody>
+    </table>

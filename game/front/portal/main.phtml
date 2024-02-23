@@ -1,0 +1,958 @@
+<ips:template parameters="$news, $newsCM, $newsLSPD, $latestchanges, $allchanges, $news_max1" />
+<div class='ipsColumns'>
+  
+  <!--<div class='ipsColumn'>
+    <h1 class="ipsType_sectionTitle2 ipsType_reset cForumTitle" style="font-size: 140%">
+      <i class="fas fa-globe"></i>&nbsp;
+      <strong>Mamy obecnie <span class="Stats">{expression="\IPS\game\Character::CharacterCount()"}</span> założonych postaci. Na serwerze w tym momencie przebywa <span class="Stats">{expression="\IPS\game\Character::playersOnline()"} graczy online</span></strong></h1>
+    
+  </div>-->
+  
+  
+</div>
+
+<div class='ipsColumns' style="margin-top: -10px">
+  <div class="ipsColumn ipsColumn_veryWide">
+<div style="margin-top: 45px">
+<center>
+<div style="padding: 13px; border-left: 4px solid #eeeeef; background: #f9f9f9; border-radius: 10px; margin-bottom:18px; background: #fe7;
+    padding: 15px 21px;
+    margin-bottom: 10px;
+    font-size: 11pt;
+    line-height: 150%;
+    line-height: 1.5;
+    color: #272527;
+    border-radius: 3px">
+<span style="font-size: 1.45em;
+   font-weight:bold;
+   
+ 
+    line-height: 1.6;" ><i class="fas fa-lock" aria-hidden="true"></i> Zabezpiecz swoje konto!</span><br><span style="line-height: 1.3;">Pamiętaj, aby chronić Swoje hasło jak i <span style="text-decoration: underline;">bezpiecznie przechowywać wszystkie dane,</span> które mogą zostać użyte do logowania. <br>Pamiętaj - ekipa h-rp nigdy nie poprosi Cię o Twoje hasło!</span>
+</div>
+</center>
+<center>
+<a href="https://h-rp.eu/index.php?/character/"><img src="https://i.imgur.com/T4XUfgW.png" width="300px" height="150px" style="margin-bottom:5px;"></a>
+<a href="https://h-rp.eu/index.php?app=game&amp;module=character&amp;controller=character&amp;tab=selldoors"><img src="https://i.imgur.com/Cezqhq8.png" width="300px" height="130px" style="margin-bottom:5px;"></a>
+<a href="http://files.ls-rp.net/sa-mp-0.3.DL-R1-install.exe"><img src="https://i.imgur.com/UfBxV2O.png" width="300px" height="130px" style="margin-bottom:5px;"></a>
+</center>
+<!--<hr class="ipsHr">
+<h2 class="ipsType_sectionTitle ipsType_reset cForumTitle">
+Ostatnie zmiany
+</h2>
+<div class="ipsBox" style="padding: 5px;">
+<ul class="ipsDataList" data-role="statusFeed">
+<li class="ipsDataItem  ipsPad" data-statusid="2"> Brak wpisów. </li>
+</ul>
+<div class="ipsMenu_footerBar ipsType_center">
+<a href="#allchanges" data-ipsdialog="" data-ipsdialog-title="Wszystkie zmiany" data-ipsdialog-content="#allchanges" data-ipsdialog-size="narrow">
+<i class="fa fa-bars" aria-hidden="true"></i>&nbsp; Wyświetl wszystkie zmiany</a>
+<div class="ipsType_center">
+<a href="https://h-rp.eu/index.php?app=game&amp;module=ajax&amp;controller=changes" class="ipsButton ipsButton_overlaid ipsButton_verySmall" data-ipsdialog="" data-ipsdialog-modal="true" data-ipsdialog-size="narrow" data-ipsdialog-title="Dodaj zmiane">
+<i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;<span class="ipsResponsive_hidePhone ipsResponsive_inline">&nbsp;&nbsp;Dodaj zmiane</span>
+</a>
+</div>
+</div>
+<div id="allchanges" class="ipsHide">
+<div class="ipsFollowerList ipsScrollbar">
+<ul style="list-style-type: none; padding: 0; margin:  0;">
+<li class="ipsDataItem" data-statusid="2">
+Brak wpisów.
+</li>
+</ul>
+</div>
+</div>
+</div>-->
+</div>
+</div>
+  <div class='ipsColumn ipsColumn_fluid'>
+    <h1 class="ipsType_sectionTitle2 ipsType_reset cForumTitle">
+
+
+
+    {{if count( $news )}}		
+    {{foreach $news as $topic}} 
+    <ol class='ipsBox ipsStreamItem ipsStreamItem_contentBlock ipsStreamItem_expanded ipsAreaBackground_reset ipsPad' data-role="tableRows">
+      <div class='ipsPhotoPanel ipsPhotoPanel_mini ipsClearfix ipsType_medium'>
+        <img src='{$topic["photo"]}' alt='' class='ipsUserPhoto ipsUserPhoto_mini'>
+        <div>
+          <h1 class="ipsType_pageTitle">
+            <span data-role="streamTitle" class="ipsType_sectionTitle2 ipsType_reset cForumTitle">
+            	<a href='https://h-rp.eu/index.php?/forums/topic/{$topic["topic_id"]}-redirect/' title='' target='_top'>{$topic['title']}</a></span>
+            <span class="ipsType_blendLinks ipsType_small ipsPos_right">
+              <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li class="ipsType_light ipsType_small"><i class='fa fa-comments-o fa-lg'></i> &nbsp; {lang="replies_number" pluralize="$topic['posts']"}</li> 
+                <li class="ipsType_light ipsType_small"><i class='fa fa-eye fa-lg'></i> &nbsp;{$topic['views']} wyświetleń</li>
+                <li>	
+                  {{if $topic['featured']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_intermediary" data-ipsTooltip title='{lang="featured"}'><i class='fa fa-star fa-lg'></i></span></span>
+                  {{endif}}
+                  {{if $topic['pinned']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack fa-lg'></i></span></span>
+                  {{endif}}
+                </li>
+              </ul>
+            </span>
+          </h1>
+          <span class="ipsType_light ipsType_small" style="font-weight:300;">Przez {$topic['author_name']} &nbsp;<i class="fa fa-clock-o"></i>&nbsp;{datetime="$topic['start_date']"}</span>
+          <hr class="ipsHr">
+          <div data-ipsTruncate data-ipsTruncate-type="hide" data-ipsTruncate-size="35 lines" class='ipsType_richText ipsType_small newstext' data-controller='core.front.core.lightboxedImages'>
+            {$topic['post']|raw}
+          </div>
+        </div>
+      </div>
+    </ol> 
+    {{endforeach}}		
+    {{else}}
+     <ol class='ipsBox ipsStreamItem ipsStreamItem_contentBlock ipsStreamItem_expanded ipsAreaBackground_reset ipsPad' data-role="tableRows" itemscope>
+       <h3 class="ipsType_reset ipsType_light"><strong><i class="fa fa-exclamation-circle"></i> Brak tematów w tym dziale.</strong></h3>
+    </ol>
+    {{endelse}}
+    {{endif}}
+     <br />
+
+  </div>
+
+  
+</div>
+
+<div class='ipsColumns' style="width: 80%;
+    margin: 50px auto;
+    background: #74b9ea;">
+  
+  <div class='ipsColumn ipsColumn_fluid' style="padding: 13px;">
+    <h1 class="ipsType_sectionTitle2 ipsType_reset cForumTitle" style="font-size: 140%">
+      <i class="fa fa-bullhorn fa-lg"></i>&nbsp;
+      <strong>Ogłoszenie zespołu <span class='ipsType_success' style="color:#fff;">Community Manager</span></strong></h1>
+    {{if count( $newsLSPD )}}		
+    {{foreach $newsLSPD as $topic}} 
+    <ol class='ipsBox ipsStreamItem ipsStreamItem_contentBlock ipsStreamItem_expanded ipsAreaBackground_reset ipsPad' data-role="tableRows" itemscope>
+      <div class='ipsPhotoPanel ipsPhotoPanel_mini ipsClearfix ipsType_medium'>
+        <img src='{$topic["photo"]}' alt='' class='ipsUserPhoto ipsUserPhoto_mini'>
+        <div>
+          <h1 class="ipsType_pageTitle">
+            <span data-role="streamTitle" class="ipsType_sectionTitle2 ipsType_reset cForumTitle" style="font-size: 100%">
+            	<a href='https://h-rp.eu/index.php?/forums/topic/{$topic["topic_id"]}-redirect/' title='' target='_top'>{$topic['title']}</a></span>
+            <span class="ipsType_blendLinks ipsType_small ipsPos_right">
+              <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li class="ipsType_light ipsType_small"><i class='fa fa-comments-o fa-lg'></i> &nbsp;{lang="replies_number" pluralize="$topic['posts']"}</li> 
+                <li class="ipsType_light ipsType_small"><i class='fa fa-eye fa-lg'></i> &nbsp;{$topic['views']} wyświetleń</li>
+                <li>	
+                  {{if $topic['featured']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_intermediary" data-ipsTooltip title='{lang="featured"}'><i class='fa fa-star fa-lg'></i></span></span>
+                  {{endif}}
+                  {{if $topic['pinned']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack fa-lg'></i></span></span>
+                  {{endif}}
+                </li>
+              </ul>
+            </span>
+          </h1>
+          <span class="ipsType_light ipsType_small">Przez {$topic['author_name']} &nbsp;<i class="fa fa-clock-o"></i>&nbsp;{datetime="$topic['start_date']"}</span>
+          <hr class="ipsHr">
+          
+          <div data-ipstruncate="" data-ipstruncate-type="hide" data-ipstruncate-size="20 lines" data-ipstruncate-watch="false" style="overflow-wrap: break-word;" class="">
+            {$topic['post']|raw}
+          </div>
+        </div>
+      </div>
+    </ol> 
+    {{endforeach}}	
+      {{else}}
+     <ol class='ipsBox ipsStreamItem ipsStreamItem_contentBlock ipsStreamItem_expanded ipsAreaBackground_reset ipsPad' data-role="tableRows" itemscope>
+       <h3 class="ipsType_reset ipsType_light"><strong><i class="fa fa-exclamation-circle"></i> Brak tematów w tym dziale.</strong></h3>
+    </ol>
+      {{endelse}}
+    {{endif}}
+  </div>
+ 
+   <div class='ipsColumn ipsColumn_fluid' style="padding: 13px;">
+    <h1 class="ipsType_sectionTitle2 ipsType_reset cForumTitle" style="font-size: 140%">
+      <i class="fa fa-globe fa-lg"></i>&nbsp;
+      <strong>Wydarzenia ze świata gry</strong></h1>
+    {{if count( $newsCM )}}		
+    {{foreach $newsCM as $topic}} 
+    <ol class='ipsBox ipsStreamItem ipsStreamItem_contentBlock ipsStreamItem_expanded ipsAreaBackground_reset ipsPad' data-role="tableRows" itemscope>
+      <div class='ipsPhotoPanel ipsPhotoPanel_mini ipsClearfix ipsType_medium'>
+        <img src='{$topic["photo"]}' alt='' class='ipsUserPhoto ipsUserPhoto_mini'>
+        <div>
+          <h1 class="ipsType_pageTitle">
+            <span data-role="streamTitle" class="ipsType_sectionTitle2 ipsType_reset cForumTitle" style="font-size: 100%">
+            	<a href='https://h-rp.eu/index.php?/forums/topic/{$topic["topic_id"]}-redirect/' title='' target='_top'>{$topic['title']}</a></span>
+            <span class="ipsType_blendLinks ipsType_small ipsPos_right">
+              <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li class="ipsType_light ipsType_small"><i class='fa fa-comments-o fa-lg'></i> &nbsp;{lang="replies_number" pluralize="$topic['posts']"}</li> 
+                <li class="ipsType_light ipsType_small"><i class='fa fa-eye fa-lg'></i> &nbsp;{$topic['views']} wyświetleń</li>
+                <li>	
+                  {{if $topic['featured']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_intermediary" data-ipsTooltip title='{lang="featured"}'><i class='fa fa-star fa-lg'></i></span></span>
+                  {{endif}}
+                  {{if $topic['pinned']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack fa-lg'></i></span></span>
+                  {{endif}}
+                </li>
+              </ul>
+            </span>
+          </h1>
+          <span class="ipsType_light ipsType_small">Przez {$topic['author_name']} &nbsp;<i class="fa fa-clock-o"></i>&nbsp;{datetime="$topic['start_date']"}</span>
+          <hr class="ipsHr">
+          <div data-ipsTruncate data-ipsTruncate-type="hide" data-ipsTruncate-size="20 lines">
+            {$topic['post']|raw}
+          </div>
+        </div>
+      </div>
+    </ol> 
+    {{endforeach}}	
+      {{else}}
+     <ol class='ipsBox ipsStreamItem ipsStreamItem_contentBlock ipsStreamItem_expanded ipsAreaBackground_reset ipsPad' data-role="tableRows" itemscope>
+       <h3 class="ipsType_reset ipsType_light"><strong><i class="fa fa-exclamation-circle"></i> Brak tematów w tym dziale.</strong></h3>
+    </ol>
+      {{endelse}}
+    {{endif}}
+  </div>
+  
+</div>
+ <!--
+  
+   <h3 class="hrpTitle" style="font-size:26px;">Nowości</h3>
+  <div style="max-width:90%; margin:0 auto;">
+    
+  <div id="box_left"> 
+ 
+      {{if count( $newsLSPD )}}		
+    {{foreach $newsLSPD as $topic}} 
+
+
+
+    <header>
+  <div id="hrpNewsHeader">
+                <div id="hrpNewsHeaderAvatar">
+<img class="ipsUserPhoto ipsUserPhoto_tiny" src="{$topic['photo']}">
+                </div>
+                <div id="hrpNewsHeaderText">
+                                        <a href="/forums/topic/{$topic["topic_id"]}-redirect/"><h2>{$topic['title']}</h2></a>
+                    <h3>{datetime="$topic['start_date']"} przez <a></a><a title="" id="anonymous_element_1"><span itemprop="name"><span style="color: #9424b4;">{$topic['author_name']}</span></span></a></h3>
+                </div>
+                
+            </div>
+
+  </header>
+
+<div data-ipsTruncate data-ipsTruncate-type="hide" data-ipsTruncate-size="40 lines" class='ipsType_richText ipsType_small' data-controller='core.front.core.lightboxedImages'>
+            {$topic['post']|raw}
+          </div>
+  <div class="subinfo clearfix"><div class="right"  style="text-align:right;">
+   <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li class="ipsType_light ipsType_small"><i class='fa fa-comments-o fa-lg'></i> &nbsp; {lang="replies_number" pluralize="$topic['posts']"}</li> 
+                <li class="ipsType_light ipsType_small"><i class='fa fa-eye fa-lg'></i> &nbsp;{$topic['views']} wyświetleń</li>
+                <span class="ipsType_blendLinks ipsType_small ipsPos_right">
+              <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li>	
+                  {{if $topic['featured']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_intermediary" data-ipsTooltip title='{lang="featured"}'><i class='fa fa-star fa-lg'></i></span></span>
+                  {{endif}}
+                  {{if $topic['pinned']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack fa-lg'></i></span></span>
+                  {{endif}}
+                </li>
+              </ul>
+            </span>
+              </ul>
+    </div></div>
+
+    {{endforeach}}		
+    {{endif}}
+    
+  </div>
+
+ 
+<div id="box_right"> 
+  <div id="hrpSanNewsHeader">
+            <h2>Bone Country News</h2>
+            <h3>WIADOMOŚCI LIVE</h3><br>
+        </div>
+   {{if count( $newsCM )}}		
+    {{foreach $newsCM as $topic}} 
+  <div class="hentry sarpNews sarpNews1 " style="max-width:100%;">
+
+  <div id="hrpNews" class="ipsTruncate">
+    <header>
+  <div id="hrpNewsHeader">
+                <div id="hrpNewsHeaderAvatar">
+<img class="ipsUserPhoto ipsUserPhoto_tiny" src="{$topic['photo']}">
+                </div>
+                <div id="hrpNewsHeaderText">
+                                        <a href="/forums/topic/{$topic["topic_id"]}-redirect/"><h2>{$topic['title']}</h2></a>
+                    <h3>{datetime="$topic['start_date']"} przez <a></a><a title="" id="anonymous_element_1"><span itemprop="name"><span style="color: #9424b4;">{$topic['author_name']}</span></span></a></h3>
+                </div>
+                
+            </div>
+
+  </header>
+
+<div data-ipsTruncate data-ipsTruncate-type="hide" data-ipsTruncate-size="40 lines" class='ipsType_richText ipsType_small' data-controller='core.front.core.lightboxedImages '>
+            {$topic['post']|raw}
+          </div>
+  <div class="subinfo clearfix"><div class="right"  style="text-align:right;">
+   <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li class="ipsType_light ipsType_small"><i class='fa fa-comments-o fa-lg'></i> &nbsp; {lang="replies_number" pluralize="$topic['posts']"}</li> 
+                <li class="ipsType_light ipsType_small"><i class='fa fa-eye fa-lg'></i> &nbsp;{$topic['views']} wyświetleń</li>
+                <span class="ipsType_blendLinks ipsType_small ipsPos_right">
+              <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li>	
+                  {{if $topic['featured']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_intermediary" data-ipsTooltip title='{lang="featured"}'><i class='fa fa-star fa-lg'></i></span></span>
+                  {{endif}}
+                  {{if $topic['pinned']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack fa-lg'></i></span></span>
+                  {{endif}}
+                </li>
+              </ul>
+            </span>
+              </ul>
+    </div></div>
+
+    {{endforeach}}		
+    {{endif}}
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+-->
+   
+<div class="clear"></div>
+  
+   
+
+
+  
+  <!--
+
+  
+  
+<div class='ipsColumns' style="margin-top: -10px width:100%;" >
+  <div class='ipsColumn ipsColumn_fluid'>
+    <div class="saCharacterTab ipsColumn_fluid tab_1" style="display: block;">
+    
+
+      <h1 class="portal_h1">Informacje dla <span style="color:#9a5f03;">społeczności</span></h1>
+      
+    {{if count( $news )}}		
+    {{foreach $news as $topic}} 
+       {{if $topic['topic_id'] != 0 }}
+    <ol class='ipsBox ipsStreamItem ipsStreamItem_contentBlock ipsStreamItem_expanded ipsAreaBackground_reset ipsPad' data-role="tableRows" style="">
+      <div class='ipsPhotoPanel ipsPhotoPanel_mini ipsClearfix ipsType_medium' >
+        <img src='{$topic["photo"]}' alt='' class='ipsUserPhoto ipsUserPhoto_mini'>
+        <div>
+          <h1 class="ipsType_pageTitle">
+            <span data-role="streamTitle" class="ipsType_sectionTitle ipsType_reset cForumTitle" style="font-size: 100%">
+            	<a href='index.php?/forums/topic/{$topic["topic_id"]}-redirect/' title='' target='_top'>{$topic['title']}</a></span>
+            <span class="ipsType_blendLinks ipsType_small ipsPos_right">
+              <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li class="ipsType_light ipsType_small"><i class='fa fa-comments-o fa-lg'></i> &nbsp; {lang="replies_number" pluralize="$topic['posts']"}</li> 
+                <li class="ipsType_light ipsType_small"><i class='fa fa-eye fa-lg'></i> &nbsp;{$topic['views']} wyświetleń</li>
+                <li>	
+                  {{if $topic['featured']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_intermediary" data-ipsTooltip title='{lang="featured"}'><i class='fa fa-star fa-lg'></i></span></span>
+                  {{endif}}
+                  {{if $topic['pinned']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack fa-lg'></i></span></span>
+                  {{endif}}
+                </li>
+              </ul>
+            </span>
+          </h1>
+          <span class="ipsType_light ipsType_small">Przez {$topic['author_name']} &nbsp;<i class="fa fa-clock-o"></i>&nbsp;{datetime="$topic['start_date']"}</span>
+          <hr class="ipsHr">
+          <div data-ipsTruncate data-ipsTruncate-type="hide" data-ipsTruncate-size="35 lines" class='ipsType_richText ipsType_small' data-controller='core.front.core.lightboxedImages'>
+            {$topic['post']|raw}
+          </div>
+        </div>
+      </div>
+    </ol> 
+      {{endif}}
+    {{endforeach}}		
+    {{endif}}
+    </div>
+     <br />
+
+ <div class="saCharacterTab ipsColumn_fluid tab_2" style="display: none;">
+    
+    <h1 class="ipsType_sectionTitle ipsType_reset cForumTitle" style="font-size: 180%">
+    
+      <strong>Ogłoszenia GameMasterów</strong></h1>
+    {{if count( $newsCM )}}		
+    {{foreach $newsCM as $topic}} 
+    <ol class='ipsBox ipsStreamItem ipsStreamItem_contentBlock ipsStreamItem_expanded ipsAreaBackground_reset ipsPad' data-role="tableRows" style="">
+      <div class='ipsPhotoPanel ipsPhotoPanel_mini ipsClearfix ipsType_medium' >
+        <img src='{$topic["photo"]}' alt='' class='ipsUserPhoto ipsUserPhoto_mini'>
+        <div>
+          <h1 class="ipsType_pageTitle">
+            <span data-role="streamTitle" class="ipsType_sectionTitle ipsType_reset cForumTitle" style="font-size: 100%">
+            	<a href='index.php?/forums/topic/{$topic["topic_id"]}-redirect/' title='' target='_top'>{$topic['title']}</a></span>
+            <span class="ipsType_blendLinks ipsType_small ipsPos_right">
+              <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li class="ipsType_light ipsType_small"><i class='fa fa-comments-o fa-lg'></i> &nbsp; {lang="replies_number" pluralize="$topic['posts']"}</li> 
+                <li class="ipsType_light ipsType_small"><i class='fa fa-eye fa-lg'></i> &nbsp;{$topic['views']} wyświetleń</li>
+                <li>	
+                  {{if $topic['featured']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_intermediary" data-ipsTooltip title='{lang="featured"}'><i class='fa fa-star fa-lg'></i></span></span>
+                  {{endif}}
+                  {{if $topic['pinned']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack fa-lg'></i></span></span>
+                  {{endif}}
+                </li>
+              </ul>
+            </span>
+          </h1>
+          <span class="ipsType_light ipsType_small">Przez {$topic['author_name']} &nbsp;<i class="fa fa-clock-o"></i>&nbsp;{datetime="$topic['start_date']"}</span>
+          <hr class="ipsHr">
+          <div data-ipsTruncate data-ipsTruncate-type="hide" data-ipsTruncate-size="35 lines" class='ipsType_richText ipsType_small' data-controller='core.front.core.lightboxedImages'>
+            {$topic['post']|raw}
+          </div>
+        </div>
+      </div>
+    </ol> 
+    {{endforeach}}		
+    {{endif}}
+    </div>
+     <br />
+<div class="saCharacterTab ipsColumn_fluid tab_3" style="display: none;">
+    
+    <h1 class="ipsType_sectionTitle ipsType_reset cForumTitle" style="font-size: 180%">
+    
+      <strong>Aktualność z życia LSPD</strong></h1>
+    {{if count( $newsLSPD )}}		
+    {{foreach $newsLSPD as $topic}} 
+    <ol class='ipsBox ipsStreamItem ipsStreamItem_contentBlock ipsStreamItem_expanded ipsAreaBackground_reset ipsPad' data-role="tableRows" style="">
+      <div class='ipsPhotoPanel ipsPhotoPanel_mini ipsClearfix ipsType_medium' >
+        <img src='{$topic["photo"]}' alt='' class='ipsUserPhoto ipsUserPhoto_mini'>
+        <div>
+          <h1 class="ipsType_pageTitle">
+            <span data-role="streamTitle" class="ipsType_sectionTitle ipsType_reset cForumTitle" style="font-size: 100%">
+            	<a href='index.php?/forums/topic/{$topic["topic_id"]}-redirect/' title='' target='_top'>{$topic['title']}</a></span>
+            <span class="ipsType_blendLinks ipsType_small ipsPos_right">
+              <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li class="ipsType_light ipsType_small"><i class='fa fa-comments-o fa-lg'></i> &nbsp; {lang="replies_number" pluralize="$topic['posts']"}</li> 
+                <li class="ipsType_light ipsType_small"><i class='fa fa-eye fa-lg'></i> &nbsp;{$topic['views']} wyświetleń</li>
+                <li>	
+                  {{if $topic['featured']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_intermediary" data-ipsTooltip title='{lang="featured"}'><i class='fa fa-star fa-lg'></i></span></span>
+                  {{endif}}
+                  {{if $topic['pinned']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack fa-lg'></i></span></span>
+                  {{endif}}
+                </li>
+              </ul>
+            </span>
+          </h1>
+          <span class="ipsType_light ipsType_small">Przez {$topic['author_name']} &nbsp;<i class="fa fa-clock-o"></i>&nbsp;{datetime="$topic['start_date']"}</span>
+          <hr class="ipsHr">
+          <div data-ipsTruncate data-ipsTruncate-type="hide" data-ipsTruncate-size="35 lines" class='ipsType_richText ipsType_small' data-controller='core.front.core.lightboxedImages'>
+            {$topic['post']|raw}
+          </div>
+        </div>
+      </div>
+    </ol> 
+    {{endforeach}}		
+    {{endif}}
+    </div>
+     <br />
+  </div>
+
+
+     
+ 
+    
+     
+    
+    
+   
+  </div> 
+
+            
+ 
+   
+  </div>
+  
+-->
+  
+
+
+
+   <script type="text/javascript">
+        var request = new XMLHttpRequest();
+
+        request.open('GET', 'https://discordapp.com/api/guilds/664848834194702336/widget.json', true);
+
+        request.onload = function() {
+          if (request.status >= 200 && request.status < 400) {
+            // Success!
+            var data = JSON.parse(request.responseText);
+            document.getElementById("discord-counter").innerHTML = data.members.length;
+
+          } else {
+            // We reached our target server, but it returned an error
+
+          }
+        };
+
+        request.onerror = function() {
+          // There was a connection error of some sort
+        };
+
+        request.send();
+    </script>
+
+
+  
+  
+<!--
+<div class='hrpContainer'  style="">
+<div class="saHeroArticle">
+   
+<img src="https://life-of-german.org/image-proxy/?key=34b886a8f9fc35191d409ddc13b0365a6c96fe06a1f5f5ed7f838565a6353155-aHR0cHM6Ly9maWxlcy5saWZlLW9mLWdlcm1hbi5vcmcvY21zL2ltYWdlcy9sb2dvcy9zYW1wLnBuZw%3D%3D">
+<h4>San Andreas MultiPlayer</h4>
+<p>Rozwijaj Swoje postacie i zarabiaj pieniądze, na setki sposobów.<br>Wiele skomplikowanych systemów stworzonych z myślą o Tobie, nie czekaj - dołącz już teraz. <br><br>Zostań kim zapragniesz, szeryfem, medykiem, gangsterem, przemytnikiem, rolnikiem, to tylko z nieskończonych możliwości na odgrywanie postaci!</p>
+  </div>
+
+      <div class="ipsMessage" style="font-size:18px; text-align:center; color:#000;">
+        Konto Premium (30 dni)<br>
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="AZ5L3DAU9MCL8">
+<input type="image" src="https://www.paypalobjects.com/pl_PL/PL/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal – Płać wygodnie i bezpiecznie">
+<img alt="" border="0" src="https://www.paypalobjects.com/pl_PL/i/scr/pixel.gif" width="1" height="1">
+</form>
+        <br>
+        <p style="font-size:12px;">Po zakupie napisz wiadomość do Rustler</p>
+      </div>
+
+
+
+  
+
+
+
+  <br>
+  <a class="btnhrp2" href="https://discord.gg/yAHpjhs"><img width="40px"  height="40px"src="https://img.icons8.com/clouds/2x/discord-logo.png"> Dołącz do discorda</a>
+  
+
+  
+  
+ 
+ <style>
+   .maintitle {
+    padding:2px;
+    width:100%;
+}
+   .maintitle > a {
+    padding: 3px 0;
+}
+   .right {
+    float: right;
+     margin-top:-35px;
+}
+   .ipsTruncate + .ipsTruncate_more {
+width: 100%;
+    background-color: #5e6e80;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 5px;
+    padding: 8px 0;
+   }
+  </style>
+<script>
+  function switchTabs(chosen)
+  {
+    $(".saCharacterTab").hide();
+    $(".tab_"+chosen).show();
+    $('.href_tab_'+chosen).addClass('ipsSideMenu_itemActive');
+    $('.saCharacterHref').removeClass('ipsSideMenu_itemActive');
+    $('.href_tab_'+chosen).addClass('ipsSideMenu_itemActive');
+  }
+</script>
+<style>
+  .ipsSideMenu_itemActive{ border-bottom: 3px solid #fac746;}
+  </style>
+
+  <div class="p-right-top clearfix">
+   <h1 class="ipsType_sectionTitle ipsType_reset cForumTitle" style="font-size: 180%">
+        <i class="fa fa-bookmark-o fa-lg"></i>&nbsp;
+      <strong>Najnowsza aktualność</strong></h1>
+     
+    {{if count( $news_max1 )}}		
+    {{foreach $news_max1 as $topic}}  
+
+    <div class="content-left ">
+	 <ol class='ipsBox ipsStreamItem ipsStreamItem_contentBlock ipsStreamItem_expanded ipsAreaBackground_reset ipsPad' data-role="tableRows">
+		<div class="content">
+			<div class="content-padding">
+           <h1 class="ipsType_pageTitle">
+            <span data-role="streamTitle" class="ipsType_sectionTitle ipsType_reset cForumTitle" style="font-size: 100%">
+            	<a href='/forums/topic/{$topic["topic_id"]}-redirect/' title='' target='_top'>{$topic['title']}</a></span>
+            <span class="ipsType_blendLinks ipsType_small ipsPos_right">
+              <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li class="ipsType_light ipsType_small"><i class='fa fa-comments-o fa-lg'></i> &nbsp; {lang="replies_number" pluralize="$topic['posts']"}</li> 
+                <li class="ipsType_light ipsType_small"><i class='fa fa-eye fa-lg'></i> &nbsp;{$topic['views']} wyświetleń</li>
+                <li>	
+                  {{if $topic['featured']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_intermediary" data-ipsTooltip title='{lang="featured"}'><i class='fa fa-star fa-lg'></i></span></span>
+                  {{endif}}
+                  {{if $topic['pinned']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack fa-lg'></i></span></span>
+                  {{endif}}
+                </li>
+              </ul>
+            </span>
+          </h1>
+          
+                       <div style="text-align: justify; text-justify: inter-word; width:100%;" data-ipsTruncate data-ipsTruncate-type="hide" data-ipsTruncate-size="60 lines" class='ipsType_richText ipsType_large' data-controller='core.front.core.lightboxedImages'>
+            {$topic['post']|raw}
+          </div>
+              
+              
+
+			</div>
+		</div>
+        </ol>
+	</div>	
+   
+     {{endforeach}}		
+    {{endif}}
+    <div class="content-top-right">
+
+		<div id="samp">
+			<div id="players">{expression="\IPS\game\Character::playersOnline()"}</div>
+			<div class="padding">
+				<div class="head">San Andreas<br><span>Multiplayer</span></div>
+				<p>
+					San Andreas Multiplayer jest dodatkiem podpisanym pod silnik <b>Grand Theft Auto.</b>
+                                                                                        
+W celu wejścia na serwer, należy <u><a href="http://www.mediafire.com/file/5zqthco1ix28qgs/sa-mp-0.3.DL-R1-install.zip/file">pobrać najnowszą wersję programu,</a></u> a następnie zainstalować ja w katalogu głównym gry.<br>Mamy stworzone obecnie {expression="\IPS\game\Character::CharacterCount()"} postaci.
+				</p>
+			</div>
+		</div>
+		<a id="changesModal" href="https://h-rp.eu/character/"><div id="more_players">Pokaż listę graczy</div></a>
+		<a id="changesModal" href="samp://51.178.30.88:7777"><div id="more_players">Dołącz do serwera</div></a>
+      <div id="ts3">
+			<div id="players"><span id="discord-counter"></span></div>
+			<div class="padding">
+				<div class="head">Serwer głosowy<br><span>Discord</span></div>
+				<p>
+					Bezpłatny komunikator internetowy do komunikacji głosowej i tekstowej między wieloma użytkownikami.
+                  
+                  <u><a href="https://discord.gg/yAHpjhs">Dołącz do discorda</a></u>
+                                       
+				</p>
+			</div>
+		</div>
+    
+    </div>
+  </div> 
+
+	</div>
+</div>
+ <!--
+  
+   <h3 class="hrpTitle" style="font-size:26px;">Nowości</h3>
+  <div style="max-width:90%; margin:0 auto;">
+    
+  <div id="box_left"> 
+ 
+      {{if count( $newsLSPD )}}		
+    {{foreach $newsLSPD as $topic}} 
+
+
+
+    <header>
+  <div id="hrpNewsHeader">
+                <div id="hrpNewsHeaderAvatar">
+<img class="ipsUserPhoto ipsUserPhoto_tiny" src="{$topic['photo']}">
+                </div>
+                <div id="hrpNewsHeaderText">
+                                        <a href="/forums/topic/{$topic["topic_id"]}-redirect/"><h2>{$topic['title']}</h2></a>
+                    <h3>{datetime="$topic['start_date']"} przez <a></a><a title="" id="anonymous_element_1"><span itemprop="name"><span style="color: #9424b4;">{$topic['author_name']}</span></span></a></h3>
+                </div>
+                
+            </div>
+
+  </header>
+
+<div data-ipsTruncate data-ipsTruncate-type="hide" data-ipsTruncate-size="40 lines" class='ipsType_richText ipsType_small' data-controller='core.front.core.lightboxedImages'>
+            {$topic['post']|raw}
+          </div>
+  <div class="subinfo clearfix"><div class="right"  style="text-align:right;">
+   <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li class="ipsType_light ipsType_small"><i class='fa fa-comments-o fa-lg'></i> &nbsp; {lang="replies_number" pluralize="$topic['posts']"}</li> 
+                <li class="ipsType_light ipsType_small"><i class='fa fa-eye fa-lg'></i> &nbsp;{$topic['views']} wyświetleń</li>
+                <span class="ipsType_blendLinks ipsType_small ipsPos_right">
+              <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li>	
+                  {{if $topic['featured']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_intermediary" data-ipsTooltip title='{lang="featured"}'><i class='fa fa-star fa-lg'></i></span></span>
+                  {{endif}}
+                  {{if $topic['pinned']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack fa-lg'></i></span></span>
+                  {{endif}}
+                </li>
+              </ul>
+            </span>
+              </ul>
+    </div></div>
+
+    {{endforeach}}		
+    {{endif}}
+    
+  </div>
+
+ 
+<div id="box_right"> 
+  <div id="hrpSanNewsHeader">
+            <h2>Bone Country News</h2>
+            <h3>WIADOMOŚCI LIVE</h3><br>
+        </div>
+   {{if count( $newsCM )}}		
+    {{foreach $newsCM as $topic}} 
+  <div class="hentry sarpNews sarpNews1 " style="max-width:100%;">
+
+  <div id="hrpNews" class="ipsTruncate">
+    <header>
+  <div id="hrpNewsHeader">
+                <div id="hrpNewsHeaderAvatar">
+<img class="ipsUserPhoto ipsUserPhoto_tiny" src="{$topic['photo']}">
+                </div>
+                <div id="hrpNewsHeaderText">
+                                        <a href="/forums/topic/{$topic["topic_id"]}-redirect/"><h2>{$topic['title']}</h2></a>
+                    <h3>{datetime="$topic['start_date']"} przez <a></a><a title="" id="anonymous_element_1"><span itemprop="name"><span style="color: #9424b4;">{$topic['author_name']}</span></span></a></h3>
+                </div>
+                
+            </div>
+
+  </header>
+
+<div data-ipsTruncate data-ipsTruncate-type="hide" data-ipsTruncate-size="40 lines" class='ipsType_richText ipsType_small' data-controller='core.front.core.lightboxedImages '>
+            {$topic['post']|raw}
+          </div>
+  <div class="subinfo clearfix"><div class="right"  style="text-align:right;">
+   <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li class="ipsType_light ipsType_small"><i class='fa fa-comments-o fa-lg'></i> &nbsp; {lang="replies_number" pluralize="$topic['posts']"}</li> 
+                <li class="ipsType_light ipsType_small"><i class='fa fa-eye fa-lg'></i> &nbsp;{$topic['views']} wyświetleń</li>
+                <span class="ipsType_blendLinks ipsType_small ipsPos_right">
+              <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li>	
+                  {{if $topic['featured']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_intermediary" data-ipsTooltip title='{lang="featured"}'><i class='fa fa-star fa-lg'></i></span></span>
+                  {{endif}}
+                  {{if $topic['pinned']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack fa-lg'></i></span></span>
+                  {{endif}}
+                </li>
+              </ul>
+            </span>
+              </ul>
+    </div></div>
+
+    {{endforeach}}		
+    {{endif}}
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+-->
+   
+<div class="clear"></div>
+  
+   
+
+
+  
+  <!--
+
+  
+  
+<div class='ipsColumns' style="margin-top: -10px width:100%;" >
+  <div class='ipsColumn ipsColumn_fluid'>
+    <div class="saCharacterTab ipsColumn_fluid tab_1" style="display: block;">
+    
+
+      <h1 class="portal_h1">Informacje dla <span style="color:#9a5f03;">społeczności</span></h1>
+      
+    {{if count( $news )}}		
+    {{foreach $news as $topic}} 
+       {{if $topic['topic_id'] != 0 }}
+    <ol class='ipsBox ipsStreamItem ipsStreamItem_contentBlock ipsStreamItem_expanded ipsAreaBackground_reset ipsPad' data-role="tableRows" style="">
+      <div class='ipsPhotoPanel ipsPhotoPanel_mini ipsClearfix ipsType_medium' >
+        <img src='{$topic["photo"]}' alt='' class='ipsUserPhoto ipsUserPhoto_mini'>
+        <div>
+          <h1 class="ipsType_pageTitle">
+            <span data-role="streamTitle" class="ipsType_sectionTitle ipsType_reset cForumTitle" style="font-size: 100%">
+            	<a href='index.php?/forums/topic/{$topic["topic_id"]}-redirect/' title='' target='_top'>{$topic['title']}</a></span>
+            <span class="ipsType_blendLinks ipsType_small ipsPos_right">
+              <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li class="ipsType_light ipsType_small"><i class='fa fa-comments-o fa-lg'></i> &nbsp; {lang="replies_number" pluralize="$topic['posts']"}</li> 
+                <li class="ipsType_light ipsType_small"><i class='fa fa-eye fa-lg'></i> &nbsp;{$topic['views']} wyświetleń</li>
+                <li>	
+                  {{if $topic['featured']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_intermediary" data-ipsTooltip title='{lang="featured"}'><i class='fa fa-star fa-lg'></i></span></span>
+                  {{endif}}
+                  {{if $topic['pinned']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack fa-lg'></i></span></span>
+                  {{endif}}
+                </li>
+              </ul>
+            </span>
+          </h1>
+          <span class="ipsType_light ipsType_small">Przez {$topic['author_name']} &nbsp;<i class="fa fa-clock-o"></i>&nbsp;{datetime="$topic['start_date']"}</span>
+          <hr class="ipsHr">
+          <div data-ipsTruncate data-ipsTruncate-type="hide" data-ipsTruncate-size="35 lines" class='ipsType_richText ipsType_small' data-controller='core.front.core.lightboxedImages'>
+            {$topic['post']|raw}
+          </div>
+        </div>
+      </div>
+    </ol> 
+      {{endif}}
+    {{endforeach}}		
+    {{endif}}
+    </div>
+     <br />
+
+ <div class="saCharacterTab ipsColumn_fluid tab_2" style="display: none;">
+    
+    <h1 class="ipsType_sectionTitle ipsType_reset cForumTitle" style="font-size: 180%">
+    
+      <strong>Ogłoszenia GameMasterów</strong></h1>
+    {{if count( $newsCM )}}		
+    {{foreach $newsCM as $topic}} 
+    <ol class='ipsBox ipsStreamItem ipsStreamItem_contentBlock ipsStreamItem_expanded ipsAreaBackground_reset ipsPad' data-role="tableRows" style="">
+      <div class='ipsPhotoPanel ipsPhotoPanel_mini ipsClearfix ipsType_medium' >
+        <img src='{$topic["photo"]}' alt='' class='ipsUserPhoto ipsUserPhoto_mini'>
+        <div>
+          <h1 class="ipsType_pageTitle">
+            <span data-role="streamTitle" class="ipsType_sectionTitle ipsType_reset cForumTitle" style="font-size: 100%">
+            	<a href='index.php?/forums/topic/{$topic["topic_id"]}-redirect/' title='' target='_top'>{$topic['title']}</a></span>
+            <span class="ipsType_blendLinks ipsType_small ipsPos_right">
+              <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li class="ipsType_light ipsType_small"><i class='fa fa-comments-o fa-lg'></i> &nbsp; {lang="replies_number" pluralize="$topic['posts']"}</li> 
+                <li class="ipsType_light ipsType_small"><i class='fa fa-eye fa-lg'></i> &nbsp;{$topic['views']} wyświetleń</li>
+                <li>	
+                  {{if $topic['featured']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_intermediary" data-ipsTooltip title='{lang="featured"}'><i class='fa fa-star fa-lg'></i></span></span>
+                  {{endif}}
+                  {{if $topic['pinned']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack fa-lg'></i></span></span>
+                  {{endif}}
+                </li>
+              </ul>
+            </span>
+          </h1>
+          <span class="ipsType_light ipsType_small">Przez {$topic['author_name']} &nbsp;<i class="fa fa-clock-o"></i>&nbsp;{datetime="$topic['start_date']"}</span>
+          <hr class="ipsHr">
+          <div data-ipsTruncate data-ipsTruncate-type="hide" data-ipsTruncate-size="35 lines" class='ipsType_richText ipsType_small' data-controller='core.front.core.lightboxedImages'>
+            {$topic['post']|raw}
+          </div>
+        </div>
+      </div>
+    </ol> 
+    {{endforeach}}		
+    {{endif}}
+    </div>
+     <br />
+<div class="saCharacterTab ipsColumn_fluid tab_3" style="display: none;">
+    
+    <h1 class="ipsType_sectionTitle ipsType_reset cForumTitle" style="font-size: 180%">
+    
+      <strong>Aktualność z życia LSPD</strong></h1>
+    {{if count( $newsLSPD )}}		
+    {{foreach $newsLSPD as $topic}} 
+    <ol class='ipsBox ipsStreamItem ipsStreamItem_contentBlock ipsStreamItem_expanded ipsAreaBackground_reset ipsPad' data-role="tableRows" style="">
+      <div class='ipsPhotoPanel ipsPhotoPanel_mini ipsClearfix ipsType_medium' >
+        <img src='{$topic["photo"]}' alt='' class='ipsUserPhoto ipsUserPhoto_mini'>
+        <div>
+          <h1 class="ipsType_pageTitle">
+            <span data-role="streamTitle" class="ipsType_sectionTitle ipsType_reset cForumTitle" style="font-size: 100%">
+            	<a href='index.php?/forums/topic/{$topic["topic_id"]}-redirect/' title='' target='_top'>{$topic['title']}</a></span>
+            <span class="ipsType_blendLinks ipsType_small ipsPos_right">
+              <ul class='ipsList_inline ipsType_small ipsClearfix'>
+                <li class="ipsType_light ipsType_small"><i class='fa fa-comments-o fa-lg'></i> &nbsp; {lang="replies_number" pluralize="$topic['posts']"}</li> 
+                <li class="ipsType_light ipsType_small"><i class='fa fa-eye fa-lg'></i> &nbsp;{$topic['views']} wyświetleń</li>
+                <li>	
+                  {{if $topic['featured']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_intermediary" data-ipsTooltip title='{lang="featured"}'><i class='fa fa-star fa-lg'></i></span></span>
+                  {{endif}}
+                  {{if $topic['pinned']}}
+                  <span><span class="ipsBadge ipsBadge_icon ipsBadge_big ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack fa-lg'></i></span></span>
+                  {{endif}}
+                </li>
+              </ul>
+            </span>
+          </h1>
+          <span class="ipsType_light ipsType_small">Przez {$topic['author_name']} &nbsp;<i class="fa fa-clock-o"></i>&nbsp;{datetime="$topic['start_date']"}</span>
+          <hr class="ipsHr">
+          <div data-ipsTruncate data-ipsTruncate-type="hide" data-ipsTruncate-size="35 lines" class='ipsType_richText ipsType_small' data-controller='core.front.core.lightboxedImages'>
+            {$topic['post']|raw}
+          </div>
+        </div>
+      </div>
+    </ol> 
+    {{endforeach}}		
+    {{endif}}
+    </div>
+     <br />
+  </div>
+
+
+     
+ 
+    
+     
+    
+    
+   
+  </div> 
+
+            
+ 
+   
+  </div>
+  
+
+
+
+
+   <script type="text/javascript">
+        var request = new XMLHttpRequest();
+
+        request.open('GET', 'https://discordapp.com/api/guilds/664848834194702336/widget.json', true);
+
+        request.onload = function() {
+          if (request.status >= 200 && request.status < 400) {
+            // Success!
+            var data = JSON.parse(request.responseText);
+            document.getElementById("discord-counter").innerHTML = data.members.length;
+
+          } else {
+            // We reached our target server, but it returned an error
+
+          }
+        };
+
+        request.onerror = function() {
+          // There was a connection error of some sort
+        };
+
+        request.send();
+    </script>
+
+
+  
+  -->

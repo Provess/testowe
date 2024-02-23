@@ -1,0 +1,70 @@
+<ips:template parameters="$tabNames, $tickets" />
+<style>
+  .ipsTabs_activeItem{border-top:none;}
+</style>
+<div class="ipsBox ipsClearfix">
+  <div class="ipsTabs saTabs ipsClearfix" id="AdminCPTicketsTabs" data-ipstabbar="" data-ipstabbar-contentarea="#AdminCPTicketsTabContent"> 
+    <ul role="tablist" class="ipsList_reset">	
+      <a style="margin:-1px;"class="ipsTabs_item saTabs_item" id="tickets_forum" role="tab">
+        <span class="saTabs_count" data-action="quickToggleCount">{expression="count($tickets['forum'])"}</span>
+          Forum
+      </a>
+      <a style="margin:-1px;"class="ipsTabs_item saTabs_item" id="tickets_game" role="tab">
+          <span class="saTabs_count" data-action="quickToggleCount">{expression="count($tickets['game'])"}</span>
+          Gra
+      </a>	
+      <a style="margin:-1px;"class="ipsTabs_item saTabs_item" id="tickets_others" role="tab">
+          <span class="saTabs_count" data-action="quickToggleCount">{expression="count($tickets['others'])"}</span>
+          Inne
+      </a>
+       <a style="margin:-1px;"class="ipsTabs_item saTabs_item" id="tickets_door" role="tab">
+          <span class="saTabs_count" data-action="quickToggleCount">{expression="count($tickets['door'])"}</span>
+          Drzwi
+      </a>	
+       <a style="margin:-1px;"class="ipsTabs_item saTabs_item" id="tickets_car" role="tab">
+          <span class="saTabs_count" data-action="quickToggleCount">{expression="count($tickets['car'])"}</span>
+          Pojazdy
+      </a>	
+       <a style="margin:-1px;"class="ipsTabs_item saTabs_item" id="tickets_group" role="tab">
+          <span class="saTabs_count" data-action="quickToggleCount">{expression="count($tickets['group'])"}</span>
+          Grupy
+      </a>	
+       <a style="margin:-1px;" class="ipsTabs_item saTabs_item" id="tickets_char" role="tab">
+          <span class="saTabs_count" data-action="quickToggleCount">{expression="count($tickets['char'])"}</span>
+          Postacie
+      </a>	
+    </ul>
+  </div>
+  <section id="AdminCPTicketsTabContent" class="ipsPad">
+    {{foreach $tabNames as $name}}
+      <div id="ipsTabs_AdminCPTicketsTabs_tickets_{$name}_panel" class="ipsTabs_panel ipsPad" aria-labelledby="tickets_{$name}" aria-hidden="false" style="display: block;" animating="false">		
+        <ol class="ipsDataList ipsDataList_large ipsDataList_zebra ipsAreaBackground_reset cForumList" data-role="game_tickets">
+          {{foreach $tickets[$name] as $row}}
+   
+              <li class="ipsBox cForumRow ipsDataItem ipsDataItem_responsivePhoto  ipsClearfix">
+              <div class="ipsDataItem_main" style="vertical-align: middle; width: 300px;">
+                  <h4 class="ipsDataItem_title ipsType_large ipsType_break">
+                    <a href="index.php?/admincp/?app=game&module=admincp&tab=tickets&showTicket={$row['id']}">{$row['title']}</a>
+                  </h4>
+              </div>
+              <div class="ipsDataItem_main" style="vertical-align: middle; width: 100px;">
+                  <h4 class="ipsDataItem_title ipsType_large ipsType_break">
+                    {expression="\IPS\Member::load( $row['user_id'] )->link()" raw="true"}
+                  </h4>
+              </div>
+              <ul class="ipsDataItem_lastPoster ipsDataItem_withPhoto" style="text-align: center">
+                <li>
+                  <strong>{$row['status_name']|raw}</strong>
+                </li>
+                <li>
+                  {datetime="$row['time']"}
+                </li>
+              </ul>
+            </li>
+      
+          {{endforeach}}
+        </ol>
+      </div>
+    {{endforeach}}
+  </section>
+</div>

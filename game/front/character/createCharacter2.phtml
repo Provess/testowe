@@ -1,0 +1,118 @@
+<ips:template parameters="" />
+<ips:template parameters="$man, $woman, $age" />
+<script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+	jQuery.noConflict();
+</script>
+
+<div class="ipsBox">
+<div class="maintitle ipsFilterbar clearfix">
+	<ul class="ipsList_inline">
+				<li class="active"><a href="index.php?app=game&module=character" title="Lista postaci">Postacie</a></li>
+		<li><a href="index.php?app=game&module=online" title="W grze">W grze</a></li>
+		<li><a href="index.php?app=game&module=group" title="Grupy">Grupy</a></li>
+		<li><a href="index.php?app=game&module=map" title="Mapa">Mapa</a></li>
+		<if test="$this->memberData['member_group_id'] == 4 || $this->memberData['member_group_id'] == 6 || $this->memberData['member_group_id'] == 7 || $this->memberData['member_group_id'] == 9"> <li><a href="index.php?app=game&module=admin" title="Zaplecze">Zaplecze</a></li> </if>
+	</ul>
+</div>
+
+
+	<div class="ipsLayout ipsLayout_withleft ipsLayout_smallleft ipsVerticalTabbed clearfix usercp_body">
+		<div class="ipsVerticalTabbed_tabs ipsLayout_left" id="usercp_tabs">
+			<ul>
+				<li><a href="index.php?app=game&module=character">Lista postaci</a></li>
+				<li class="active"><a href="index.php?app=game&module=character&section=createchar">Załóż postać</a></li>
+
+
+				<li><a href="index.php?app=game&module=character&section=logs">Logi logowań</a></li>
+                                                                <li><a href="index.php?app=game&module=tickets">Zgłoszenia</a></li>
+                                <li><a href="index.php?app=game&module=premium">Konto premium</a></li>
+			</ul>
+	</div>
+<div class="ipsLayout_content ipsBox_container">
+<h2 class="ipsType_subtitle ipsSettings_pagetitle">Tworzenie nowej postaci</h2>
+<div style="padding-left:10px;padding-right:10px;">
+<div class="message succes"><b>Aktualnie znajdujesz się w kreatorze tworzenia postaci na serwerze Role Play.<br>
+Uzupełnij poniższe pola w celu utworzenia nowej postaci.</div></div></b><br><br>
+<form action="{parse url="app=game&module=character&section=createchar" base="public"}" method="post">
+	<table class="ipb_table">
+		<tbody>
+			<tr>
+				<td width="42%" align="right">
+					<strong>
+					Imię
+					</strong>
+				</td>
+			       <td align="left">
+			       <input type="text" class="input_text" name="firstname" size="25" maxlength="24">
+				</td>
+			</tr>
+			<tr>
+				<td width="42%" align="right">
+					<strong>
+						Nazwisko
+					</strong>
+				</td>
+				<td align="left">
+					<input type="text" class="input_text" name="surname" size="25" maxlength="24">
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					<strong>
+						Wiek postaci
+					</strong>
+				</td>
+				<td align="left">
+					<input type="text" class="input_text" name="age" size="25" maxlength="4" placeholder="od 18 do 90 lat">
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					<strong>
+						Płeć
+					</strong>
+				</td>
+				<td align="left">
+					<select id="charsex" name="charsex" class="input_select" style="min-width: 158px;">
+						<option value="-1" selected="selected" disabled>
+							---
+						</option>
+						<option value="0">
+							Mężczyzna
+						</option>
+						<option value="1">
+							Kobieta
+						</option>
+					</select>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div id="sMale" style="display:none;">
+		<foreach loop="$man as $row">
+			<img src="/public/skins/{$row}.png" class="skins" id="{$row}" style="margin-top: 3px;width: 70px;height: 170px;" />
+		</foreach>
+	</div>
+	
+	<div id="sFemale" style="display:none;">
+		<foreach loop="$woman as $row">
+			<img src="/public/skins/{$row}.png" class="skins" id="{$row}" style="margin-top: 3px;width: 70px;height: 170px;" />
+		</foreach>
+	</div>
+		
+	<input type="hidden" name="skin" id="sid" value=""><br />
+	<div align="center">
+		<input type='submit' name='createChar' class='input_submit' value='Stwórz nową postać' />
+<br><br>
+</div>
+</div>
+</div>
+</div>
+
+</form>
+<script type="text/javascript">
+jQuery(".skins").click( function () { if( jQuery("#sid").val() != jQuery(this).attr("id")){ jQuery(".skins").fadeTo("fast", 0.33); jQuery(this).fadeTo("fast", 1); jQuery("#sid").val( jQuery(this).attr("id") ); } else { jQuery(".skins").fadeTo("slow", 1); jQuery("#sid").val(""); } }); 
+
+jQuery("#charsex").change( function () { if(jQuery(this).val() == '1') { jQuery("#sMale").show("slow"); jQuery("#sFemale").hide("slow"); } else if (jQuery(this).val() == '0') { jQuery("#sFemale").show("slow"); jQuery("#sMale").hide("slow"); } else { jQuery("#sMale").hide("slow"); jQuery("#sFemale").hide("slow"); } });
+</script>

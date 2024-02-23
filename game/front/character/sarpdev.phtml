@@ -1,0 +1,74 @@
+<ips:template parameters="$objects, $skins" />
+<h2 class="ipsType_sectionTitle ipsType_reset cForumTitle">SA-RP &nbsp; DEV &nbsp; (budowa - zakładka widoczna tylko dla adminów oraz CM's)</h2>
+<hr class="ipsHr"> 
+{{if \IPS\Request::i()->action == '#' }}
+	Dodawanie oferty
+{{else}}
+<div class="ipsTabs saTabs ipsClearfix" id="ticketsTabs" data-ipstabbar="" data-ipstabbar-contentarea="#ticketsTabContent"> 
+  <ul role="tablist" class="ipsList_reset" style="float: left">	
+    <a class="ipsTabs_item saTabs_item ipsTabs_activeItem" id="cat_objects" role="tab" aria-selected="true">
+      <span class="saTabs_count" data-action="quickToggleCount"> <i class="fa fa-cube"></i></span>
+      Obiekty
+    </a>
+    <a class="ipsTabs_item saTabs_item" id="cat_skins" role="tab">
+      <span class="saTabs_count" data-action="quickToggleCount"> <i class="fa fa-male"></i></span>
+      Skiny
+    </a>	
+  </ul>
+ 
+  <a href="index.php?/character/&tab=sarpdev&action=#" data-ipsdialog-title="Dodawanie oferty" style="float: right; padding-top: 10px; padding-right: 10px;">
+    <span class="ipsBadge ipsBadge_large ipsBadge_intermediary">
+      <i class="fa fa-plus"></i> Dodaj
+    </span>
+  </a>
+</div>
+<section id="ticketsTabContent">
+  <div id="ipsTabs_ticketsTabs_cat_objects_panel" class="ipsTabs_panel" aria-labelledby="cat_objects" aria-hidden="false" style="display: block;" animating="false">		
+    <ol class="ipsBox ipsDataList ipsPad cForumList" data-role="sarpdev" style="border-top: 0;">
+    	<div style='margin-left: 10px'>
+          
+          {{foreach $objects as $row}}
+             <a href="index.php?app=game&module=character&tab=sarpdev&sarpdevModal={$row['id']}" data-ipsdialog="" data-ipsdialog-modal="true" data-ipsdialog-size="medium" data-ipsdialog-title="{$row['name']}">
+               <div class="sarpDevObject sarpDevObject-active" style="margin-right: 10px; margin-top: 10px;">
+                 <img src="{$row['image']}" style="weidht: 100px; height: 100px">
+                 <br/>
+                <div style="margin-top: 5px;">
+                  
+                  <p class="ipsType_sectionTitle ipsType_reset cForumTitle ipsType_right ">
+                    {{if $row['date'] + 86400 >= time()}}
+                      <span class='ipsBadge ipsBadge_negative ipsBadge_large' style='margin-top: -3px; margin-right: 3px'>NEW</span>
+                     {{endif}}
+                   <span class='ipsBadge ipsBadge_new ipsBadge_large' style='margin-top: -3px; margin-right: -7px'> {$row['info1']} </span>
+                  </p>
+                </div>
+              </div>
+  			</a>
+          {{endforeach}}
+      </div>
+    </ol>
+    
+  </div>
+  <div id="ipsTabs_ticketsTabs_cat_skins_panel" class="ipsTabs_panel" aria-labelledby="cat_skins" aria-hidden="false" style="display: block;" animating="false">
+    <ol class="ipsBox ipsDataList ipsDataList_large ipsDataList_zebra ipsAreaBackground_reset ipsPad" data-role="market" style="border-top: 0;">
+      <div style='margin-left: 10px'>
+          {{foreach $skins as $row}}
+             <a href="index.php?app=game&module=character&tab=sarpdev&sarpdevModal={$row['id']}" data-ipsdialog="" data-ipsdialog-modal="true" data-ipsdialog-size="medium" data-ipsdialog-title="{$row['name']}">
+              <div class="sarpDevObject sarpDevObject-active" style="margin-right: 10px; margin-top: 10px;">
+                <img src="{$row['image']}" style="weidht: 100px; height: 100px"><br/>
+                <div style="margin-top: 5px;">
+                  <p class="ipsType_sectionTitle ipsType_reset cForumTitle ">
+                    {{if $row['date'] + 86400 >= time()}}
+                      <span class='ipsBadge ipsBadge_negative ipsBadge_large' style='margin-top: -3px; margin-right: 3px'>NEW</span>
+                     {{endif}}
+                    <span class='ipsBadge ipsBadge_new ipsBadge_large' style='margin-top: -3px'>{$row['info1']}</span></p>
+                </div>
+              </div>
+  			</a>
+          {{endforeach}}      
+      </div> 
+    </ol>
+  </div>
+  
+</section>
+{{endelse}}
+{{endif}}
