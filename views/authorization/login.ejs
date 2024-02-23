@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<title>Logowanie - Los Angeles RolePlay</title>
+	<meta name="description" content="Los Angeles RolePlay | Panel Gracza - Miejsce, w którym możesz stworzyć swoją własną postać. Zaloguj się już teraz!">
+
+	<!-- Facebook Meta Tags -->
+	<meta property="og:url" content="">
+	<meta property="og:title" content="Logowanie - Los Angeles RolePlay">
+	<meta property="og:description" content="Los Angeles RolePlay | Panel Gracza - Miejsce, w którym możesz stworzyć swoją własną postać. Zaloguj się już teraz!">
+	<meta property="og:image" content="https://i.imgur.com/oYIyaE2.png">
+
+	<!-- Twitter Meta Tags -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="twitter:domain" content="ucp.la-rp.pl">
+	<meta property="twitter:url" content="">
+	<meta name="twitter:title" content="Logowanie - Los Angeles RolePlay">
+	<meta name="twitter:description" content="Los Angeles RolePlay | Panel Gracza - Miejsce, w którym możesz stworzyć swoją własną postać. Zaloguj się już teraz!">
+	<meta name="twitter:image" content="https://i.imgur.com/oYIyaE2.png">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/authorization/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/izitoast"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<body>
+    <section class="h-100">
+        <div class="container h-100">
+            <div class="row justify-content-sm-center h-100">
+                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+                    <div class="text-center my-5">
+                        <img src="https://i.imgur.com/4ODvLg9.png" alt="Logo LARP" width="100">
+                    </div>
+                    <div class="card shadow-lg" id="card">
+                        <div class="card-body p-5">
+                            <h1 class="fs-4 card-title fw-bold mb-4">Zaloguj się</h1>
+                            <form method="POST" class="needs-validation" novalidate="" autocomplete="off" action="/login">
+                                <div class="mb-3">
+                                    <label class="mb-2 text-muted" for="email">Nazwa użytkownika lub email</label>
+                                    <input id="email" type="text" class="form-control" name="username" value="" required autofocus>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="mb-2 w-100">
+                                        <label class="text-muted" for="password">Hasło</label>
+                                        <a href="/forgot" class="float-end">Nie pamiętasz hasła?</a>
+                                    </div>
+                                    <input id="password" type="password" class="form-control" name="password" required>
+                                </div>
+                                <small class="form-text text-muted" id="funny-password"></small>
+                                <div class="d-flex align-items-center">
+                                    <button type="submit" class="btn btn-primary ms-auto">
+                                        Zaloguj się
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer py-3 border-0">
+                            <div class="text-center">
+                                Nie masz konta? <a href="/register" class="text-dark">Zarejestruj się</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-5 text-muted">
+                        Copyright &copy; 2023 &mdash; Los Angeles RolePlay
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/authorization/js/login.js"></script>
+</body>
+<% if(req.session.error) { %>
+    <script>
+        Swal.fire({
+          icon: 'error',
+          title: 'Wystąpił problem!',
+          text: '<%=req.session.error.message%>',
+          footer: 'Spróbuj ponownie!',
+          confirmButtonText: "Zrozumiałem!"
+        })
+    </script> 
+<% delete req.session.error }%>
+<%if(req.session.info) { %>
+    <script>
+        iziToast.show({
+            id: 'haduken',
+            theme: 'light',
+            icon: 'icon-info',
+            title: '<%=req.session.info.title%>',
+            displayMode: 2,
+            message: '<%=req.session.info.message%>',
+            position: 'topCenter',
+            transitionIn: 'flipInX',
+            transitionOut: 'flipOutX',
+            progressBarColor: 'rgb(0, 255, 184)',
+            image: 'https://i.imgur.com/4ODvLg9.png',
+            imageWidth: 70,
+            layout: 2,
+            iconColor: 'rgb(0, 255, 184)'
+        });
+    </script>
+    <% delete req.session.info }%>
+</html>

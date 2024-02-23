@@ -1,0 +1,89 @@
+<style>
+    .list-group {
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    .list-group-item {
+        background-color: transparent;
+        border: none;
+        padding: 5px 0;
+    }
+</style>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <% if (req.query.user && req.query.date && req.query.file) { %>
+        <h1>Gracze: <%= req.query.user %> > Data: <%= req.query.date %> > Pliki > <%= req.query.file %></h1>
+    <% } else if (req.query.user && req.query.date && !req.query.file) { %>
+        <h1>Gracze: <%= req.query.user %> > Data: <%= req.query.date %> > Pliki</h1>
+    <% } else if (req.query.user && !req.query.date && req.query.file) { %>
+        <h1>Gracze: <%= req.query.user %> > Pliki > <%= req.query.file %></h1>
+    <% } else if (req.query.user && !req.query.date && !req.query.file) { %>
+        <h1>Gracze: <%= req.query.user %> > Data</h1>
+    <% } else { %>
+        <h1>Logi</h1>
+    <% } %>
+    <form action="/acp/logs" method="get">
+        <div class="input-group">
+            <input type="search" class="form-control rounded"aria-label="Search" placeholder="Wyszukaj użytkownika" aria-describedby="search-addon" name="user" />
+            <button type="submit" class="btn btn-outline-primary">Szukaj</button>
+        </div>
+      </form>   
+</div>
+
+<div class="row">
+    <% if (!req.query.user) { %>
+        <ul class="list-group">
+            <% folders.forEach(function (folder) { %>
+                <li class="list-group-item">
+                    <a href="/acp/logs?user=<%= folder %>"><%= folder %></a>
+                </li>
+            <% }); %>
+        </ul>
+    <% } else if (req.query.user && !req.query.date) { %>
+        <ul class="list-group">
+            <% files.forEach(function (file) { %>
+                <li class="list-group-item">
+                    <a href="/acp/logs?user=<%= req.query.user %>&date=<%= file %>"><%= file %></a>
+                </li>
+            <% }); %>
+        </ul>
+    <% } else if (req.query.user && req.query.date && !req.query.file) { %>
+        <ul class="list-group">
+            <% files.forEach(function (file) { %>
+                <li class="list-group-item">
+                    <a href="/acp/logs?user=<%= req.query.user %>&date=<%= req.query.date %>&file=<%= file %>"><%= file %></a>
+                </li>
+            <% }); %>
+        </ul>
+    <% } else if (req.query.file && req.query.user && req.query.date) { %>
+        <pre><%= file %></pre>
+    <% } %>
+</div>
+
+<% if (!req.query.file) { %>
+    <div class="pagination">
+        <% if (page > 1) { %>
+            <a href="?page=1">&laquo;</a>
+            <a href="?page=<%= page - 1 %>">&lt;</a>
+        <% } %>
+    
+        <% const visiblePages = 5; %>
+        <% const halfVisible = Math.floor(visiblePages / 2); %>
+        <% const startPage = Math.max(1, page - halfVisible); %>
+        <% const endPage = Math.min(totalPages, startPage + visiblePages - 1); %>
+    
+        <% for (let pageNum = startPage; pageNum <= endPage; pageNum++) { %>
+            <% if (pageNum === page) { %>
+                <span class="current-page"><%= pageNum %></span>
+            <% } else { %>
+                <a href="?page=<%= pageNum %>"><%= pageNum %></a>
+            <% } %>
+        <% } %>
+    
+        <% if (page < totalPages) { %>
+            <a href="?page=<%= Number(page) + 1 %>">&gt;</a>
+        <% } %>
+    </div>
+    
+<% } %>

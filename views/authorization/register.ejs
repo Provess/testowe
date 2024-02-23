@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<title>Rejestracja - Los Angeles RolePlay</title>
+	<meta name="keywords" content="larp, la-rp.pl, la-rp, larp.pl, samp, sa-mp, gta sa, gta, gta san andreas, rp, roleplay, ucp.la-rp.pl, ucp, ucp.larp.pl, ucp.larp">
+	<meta name="description" content="Los Angeles RolePlay | Panel Gracza - Miejsce, w którym możesz stworzyć swoją własną postać. Zarejestruj się już teraz!">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+	<!-- Facebook Meta Tags -->
+	<meta property="og:url" content="">
+	<meta property="og:title" content="Rejestracja - Los Angeles RolePlay">
+	<meta property="og:description" content="Los Angeles RolePlay | Panel Gracza - Miejsce, w którym możesz stworzyć swoją własną postać. Zarejestruj się już teraz!">
+	<meta property="og:image" content="https://i.imgur.com/oYIyaE2.png">
+
+	<!-- Twitter Meta Tags -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="twitter:domain" content="ucp.la-rp.pl">
+	<meta property="twitter:url" content="">
+	<meta name="twitter:title" content="Rejestracja - Los Angeles RolePlay">
+	<meta name="twitter:description" content="Los Angeles RolePlay | Panel Gracza - Miejsce, w którym możesz stworzyć swoją własną postać. Zarejestruj się już teraz!">
+	<meta name="twitter:image" content="https://i.imgur.com/oYIyaE2.png">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+	
+    <link rel="stylesheet" href="/assets/authorization/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css">
+    <style>
+        .info-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
+        .info-icon i {
+            font-size: 24px;
+            color: #007bff;
+        }
+        .info-icon-text {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            width: 300px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+        }
+        .info-icon:hover .info-icon-text {
+            display: block;
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="https://i.imgur.com/4ODvLg9.png" alt="Logo" class="logo" id="logo">
+    <section class="h-100">
+        <div class="container h-100">
+            <div class="row justify-content-sm-center h-100">
+                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+                    <div class="card shadow-lg mt-2" id="card">
+                        <div class="card-body p-5">
+                            <h1 class="fs-4 card-title fw-bold mb-4">Zarejestruj się</h1>
+                            <form id="registerForm" class="needs-validation" novalidate="" autocomplete="off" action="/register" method="POST">
+                                <div class="mb-3">
+                                    <label class="mb-2 text-muted" for="name">Nazwa użytkownika</label>
+                                    <input id="name" type="text" class="form-control" name="username" value="" required autofocus>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="mb-2 text-muted" for="email">Adres E-Mail</label>
+                                    <input id="email" type="email" class="form-control" name="email" value="" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="mb-2 text-muted" for="password">Hasło</label>
+                                    <input id="password" type="password" class="form-control" name="password" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="mb-2 text-muted" for="password">Powtórz hasło</label>
+                                    <input id="password" type="password" class="form-control" name="password2" required>
+                                </div>
+                                <small class="form-text text-muted" id="funny-password"></small>
+                                <p class="form-text text-muted mb-3">
+                                    <%-captcha%>
+                                </p>
+                                <div class="align-items-center d-flex">
+                                    <button id="registerButton" type="submit" class="btn btn-primary ms-auto">
+                                        Zarejestruj się	
+                                    </button>
+                                    <a href="#" class="info-icon" style="display: flex; align-items: center; text-decoration: none;">
+                                        <i class="fas fa-info-circle"></i>
+                                        <span class="info-icon-text">Pamiętaj, że konto <span style="color: green">UCP</span> nie jest powiązane z kontem <span style="color: red">FORUM</span>. Do gry logujesz się danymi z <span style="color: green">UCP</span>.</span>
+                                        <small class="form-text text-muted" style="margin-left: 4px; margin-bottom: 4px; font-size: smaller;">(klik)</small>
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer py-3 border-0">
+                            <div class="text-center">
+                                Posiadasz konto? <a href="/login" class="text-dark">Zaloguj się</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/authorization/js/login.js"></script>
+    <% if(req.session.error) { %>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Wystąpił problem!',
+            text: '<%=req.session.error.message%>',
+            footer: 'Spróbuj ponownie!',
+            confirmButtonText: "Zrozumiałem!"
+        });
+    </script>
+    <% delete req.session.error }%> 
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            let logo = document.getElementById('logo');
+            let isPhoneScreen = window.matchMedia("(max-width: 767px)").matches;
+
+            if (isPhoneScreen) {
+                logo.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

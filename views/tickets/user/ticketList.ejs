@@ -1,0 +1,75 @@
+<style>
+    .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination a, .pagination span {
+  display: inline-block;
+  padding: 8px 12px;
+  margin: 0 5px;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  color: #333;
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  background-color: #ddd;
+}
+
+.pagination .current-page {
+  font-weight: bold;
+  color: #fff;
+  background-color: #333;
+}
+</style>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1>Lista twoich zgłoszeń</h1>
+    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+        <a href="/tickets/create"><button class="btn btn-primary" type="submit">Utwórz zgłoszenie</button></a>
+      </h6>
+</div>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Temat</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% tickets.forEach((ticket) => { %>
+                <tr>
+                    <th scope="row"><%= ticket.id %></th>
+                    <td><%= ticket.topic %></td>
+                    <td><%if(ticket.status == 1) {%>Zamknięty<% } else {%> Otwarty<% } %></td>
+                    <td><a href="/tickets/view?id=<%=ticket.id%>">Zobacz </a></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+<div class="pagination">
+<% if (page > 1) { %>
+    <a href="?page=<%= page - 1 %>">&laquo;</a>
+<% } %>
+
+<% for (let i = 1; i <= totalPages; i++) { %>
+    <% if (i == page) { %>
+        <span class="current-page"><%= i %></span>
+    <% } else { %>
+        <a href="?page=<%= i %>"><%= i %></a>
+    <% } %>
+<% } %>
+
+<% if (page < totalPages) { %>
+    <a href="?page=<%= page + 1 %>">&raquo;</a>
+<% } %>
+
+</div>

@@ -1,0 +1,127 @@
+.announcement-item {
+    background-color: rgb(43, 48, 53);
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.announcement-date {
+    font-size: 12px;
+    color: #888;
+    margin-top: -5px;
+    text-align: right;
+}
+
+.announcement-author {
+    font-size: 12px;
+    color: #888;
+    text-align: right;
+}
+
+.announcement-content {
+    margin-top: 5px;
+    font-size: 16px;
+}
+@media (max-width: 600px) {
+.announcement-item {
+    padding: 8px;
+}
+
+.announcement-date,
+.announcement-author,
+.announcement-content {
+    font-size: 14px;
+}
+}
+
+.slider-container {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+}
+
+.slider {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+
+
+}
+
+.slide {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide img {
+    max-width: 100%;
+    max-height: 100%;   
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.slider-controls {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+}
+
+.slider-controls .dots {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.slider-controls .dots li {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.slick-next, .slick-prev {
+    display: none !important;
+}
+
+.slider-controls .dots li.active {
+    background-color: #007bff;
+}
+
+
+#sliderek {
+    background-color: rgb(33, 37, 41) !important;
+    border: none;
+    
+}
+#announcements {
+    background-color: rgb(33, 37, 41) !important;
+    border: none;
+}
+.card {
+    background-color: rgb(43, 48, 53) !important;
+}
+body {
+    overflow: hidden;
+  }
+  @media (max-width: 767px) {
+
+    body {
+        overflow: auto;
+    }
+  }

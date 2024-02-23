@@ -1,0 +1,7 @@
+.card, .list-group-item {
+    background-color: rgb(43, 48, 53) !important;
+    color: rgb(173, 181, 189);
+  }
+  .card {
+    margin-top: 10px !important;
+  }

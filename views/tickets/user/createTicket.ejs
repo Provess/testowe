@@ -1,0 +1,70 @@
+<style>
+    .form-control {
+        color: black !important;
+    }
+</style>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1>Utwórz zgłoszenie</h1>
+</div>
+
+<form action="/tickets/create" method="POST">
+<div class="row">
+    <div class="col-md-6">
+        <label for="selectTopic">Wybierz temat:</label>
+        <select class="form-control" id="selectTopic" name="topic">
+            <option value="IC">IC</option>
+            <option value="OOC">OOC</option>
+            <option value="INNE">INNE</option>
+        </select>
+        <small id="descHelpBlock" class="form-text text-muted">
+        </small>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <label for="ticketDesc">Treść zgłoszenia:</label>
+        <textarea class="form-control" id="ticketDesc" rows="4" name="description"></textarea>
+        <small id="terms" class="form-text text-muted">Wyświetl zasady (klik)</small>
+        <div id="termss" style="display: none;">
+            <h4>Zasady zgłoszenia:</h4>
+            <p>1. Wszystkie zgłoszenia muszą być zgodne z obowiązującymi regulaminami.</p>
+            <p>2. Treść zgłoszenia powinna być zwięzła i precyzyjna.</p>
+            <p>3. Zgłoszenie powinno zawierać odpowiednie informacje, takie jak temat i opis problemu.</p>
+            <p>4. Unikaj używania obraźliwego lub nieodpowiedniego języka.</p>
+            <p>5. Możesz dołączyć dowolne dodatkowe informacje lub załączniki, jeśli są one istotne dla zgłoszenia. (najlepiej imgur, streamable, czy też youtube)</p>
+            <p>6. Pamiętaj, że zgłoszenia są przetwarzane w kolejności ich otrzymania, więc prosimy o cierpliwość.</p>
+            <p>7. W przypadku pytań lub dodatkowych informacji, skontaktuj się z naszą ekipą.</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <button type="submit" class="btn btn-primary" id="createTicket">Utwórz zgłoszenie</button>
+    </div>
+</div>
+
+</form>
+
+<script>
+    $(document).ready(function() {
+        $('#terms').click(function() {
+            $('#termss').slideToggle();
+        });
+        $('#selectTopic').change(function() {
+            var selectedOption = $(this).val();
+            var descHelpBlock = $('#descHelpBlock');
+
+            if (selectedOption === 'IC') {
+                descHelpBlock.text('Opis tematu musi zgadzać się z kategorią.Tworząc ten temat jesteś zobowiązany do pisania tylko o sprawach IN-CHARACTER');
+            } else if (selectedOption === 'OOC') {
+                descHelpBlock.text('Opis tematu musi zgadzać się z kategorią.Tworząc ten temat jesteś zobowiązany do pisania tylko o sprawach OUT-OF-CHARACTER');
+            } else if (selectedOption === 'INNE') {
+                descHelpBlock.text('Opis tematu musi zgadzać się z kategorią.Tworząc ten temat jesteś zobowiązany do pisania tylko o innych sprawach, bądź jeśli nie jesteś pewien o tym jaką kategorie powinieneś utworzyć.');
+            } else {
+                descHelpBlock.text('');
+            }
+        });
+    });
+</script>

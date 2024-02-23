@@ -1,0 +1,53 @@
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1>Lista wszystkich zgłoszeń</h1>
+    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+        <a href="/tickets/create"><button class="btn btn-primary" type="submit">Utwórz zgłoszenie</button></a>
+      </h6>
+</div>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Temat</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% tickets.forEach((ticket) => { %>
+                <tr>
+                    <th scope="row"><%= ticket.id %></th>
+                    <td><%= ticket.topic %></td>
+                    <td><%if(ticket.status == 1) {%>Zamknięty<% } else {%> Otwarty<% } %></td>
+                    <td><a href="/tickets/view?id=<%=ticket.id%>">Zobacz </a></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+<div class="pagination">
+    <% if (page > 1) { %>
+        <a href="?page=1">&laquo;</a>
+        <a href="?page=<%= page - 1 %>">&lt;</a>
+    <% } %>
+
+    <% const visiblePages = 5; %>
+    <% const halfVisible = Math.floor(visiblePages / 2); %>
+    <% const startPage = Math.max(1, page - halfVisible); %>
+    <% const endPage = Math.min(totalPages, startPage + visiblePages - 1); %>
+
+    <% for (let pageNum = startPage; pageNum <= endPage; pageNum++) { %>
+        <% if (pageNum === page) { %>
+            <span class="current-page"><%= pageNum %></span>
+        <% } else { %>
+            <a href="?page=<%= pageNum %>"><%= pageNum %></a>
+        <% } %>
+    <% } %>
+
+    <% if (page < totalPages) { %>
+        <a href="?page=<%= Number(page) + 1 %>">&gt;</a>
+    <% } %>
+</div>
+

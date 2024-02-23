@@ -1,0 +1,172 @@
+<link rel="stylesheet" href="/assets/custom/dashboard.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1>DASHBOARD</h1>
+  </div>
+  <div class="row">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Użytkownicy</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><%=users%></div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Wszystkie postacie</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><%=characters.length%></div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-primary shadow h-100 py-2">
+          <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                          Wszystkie grupy</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">400</div>
+                  </div>
+                  <div class="col-auto">
+                      <i class="fas fa-briefcase fa-2x text-gray-300"></i>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Cała gotówka</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><%=totalCash%></div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-md-10 offset-md-1">
+        <div class="d-flex" style="height: 400px;">
+            <div class="card" style="flex: 0 0 65%; margin-right: 2px;" id="sliderek">
+                <div class="card-body">
+                    <div class="slider-container">
+                        <div class="slider">
+                            <div class="slide">
+                                <a href="https://discord.com/invite/Ba5HFerRKH"><img src="https://upe.cs.fiu.edu/wp-content/uploads/sites/3/2019/02/Discord-Slider-2-1.png" alt="Discord"></a>
+                            </div>
+                            <div class="slide">
+                                <a href="https://la-rp.pl/"><img src="https://i.imgur.com/tw75AES.png" alt="Forum"></a>
+                            </div>
+                            <div class="slide">
+                                <img src="https://wiki.argonathrpg.eu/images//thumb/9/9c/SAMP.png/500px-SAMP.png" alt="SAMP" style="width: 100%">
+                            </div>
+                        </div>
+                    </div>                      
+                    <div class="slider-controls">
+                        <ul class="dots"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="flex: 0 0 35%;" id="announcements">
+                <div class="card-body">
+                    <h4 style="text-shadow: 1px 1px 2px #000000;">
+                        <i class="fas fa-bullhorn"></i> Ogłoszenia
+                    </h4>
+                    
+                    <ul class="list-unstyled">
+                        <%announcements.forEach((announcement) => { %>
+
+                        <li class="announcement-item" >
+                            <div>
+                                <span class="announcement-date"><%=announcement.created.toLocaleString()%>,</span>
+                                <span class="announcement-author"><%=announcement.author%></span>
+                            </div>
+                            <p class="announcement-content"><i class="fas fa-calendar"></i> <%=announcement.announcement%></p>
+                        </li>
+                        <% }) %>
+                        <%if(announcements.length == 0) { const dataa = new Date()%>
+                            <li class="announcement-item">
+                                <div>
+                                    <span class="announcement-date"><%=dataa.toLocaleDateString()%>,</span>
+                                    <span class="announcement-author">LA-RP</span>
+                                </div>
+                                <p class="announcement-content"><i class="fas fa-calendar"></i> Brak aktualnych ogłoszeń</p>
+                            </li>
+                            <%}%>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function() {
+        let $slider = $('.slider').slick({
+            dots: false,
+            infinite: true,
+            speed: 200,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3500, 
+        });
+
+
+        let $dotsContainer = $('.slider-controls .dots');
+        let slideCount = $slider.slick('getSlick').slideCount;
+
+        let dotsHtml = '';
+        for (let i = 0; i < slideCount; i++) {
+            dotsHtml += '<li class="dot" data-slide="' + i + '"></li>';
+        }
+        $dotsContainer.append(dotsHtml);
+
+        function updateActiveDot(currentSlide) {
+            $('.dot').removeClass('active');
+            $('.dot[data-slide="' + currentSlide + '"]').addClass('active');
+        }
+
+        $slider.on('afterChange', function(event, slick, currentSlide) {
+            updateActiveDot(currentSlide);
+        });
+
+        $dotsContainer.on('click', '.dot', function() {
+            let slideIndex = $(this).data('slide');
+            $slider.slick('slickGoTo', slideIndex);
+            updateActiveDot(slideIndex);
+        });
+    });
+</script>
